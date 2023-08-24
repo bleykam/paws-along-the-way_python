@@ -1,0 +1,36 @@
+@use "./styles/partials/mixins";
+@use "./styles/partials/colors";
+@use './styles/partials/fonts';
+
+
+.App {
+  text-align: center
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+
+.submit-button{
+  margin: 1rem;
+  padding: 0.5rem;
+  background-color: colors.$primary-green;
+  border: 0.0625rem solid colors.$primary-button;
+  color: colors.$primary-white;
+  border-radius: 0.5rem;
+  font-size: inherit;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  &:hover {
+    background-color: colors.$primary-hover;
+}
+};
+

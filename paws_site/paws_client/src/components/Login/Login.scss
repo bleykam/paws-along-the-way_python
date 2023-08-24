@@ -1,0 +1,31 @@
+@use "../../styles/partials/colors";
+@use "../../styles/partials/mixins";
+@use "../../styles/partials/fonts";
+
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    &__div{
+        margin: 1rem;
+    }
+    
+    &__input{
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+    }
+    
+    &__title {
+        font-weight: 700;
+        font-size: 1.5rem;
+        padding: 2rem;
+        margin-top: 3rem;
+        color: colors.$secondary-slate;
+        text-align: center;
+        @include mixins.tablet{
+            padding: 0;
+        }
+    }
+}

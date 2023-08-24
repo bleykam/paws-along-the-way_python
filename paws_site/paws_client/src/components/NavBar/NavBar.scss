@@ -1,0 +1,152 @@
+@use "../../styles/partials/colors";
+@use "../../styles/partials/mixins";
+
+.header {
+	position: relative;
+
+	&::before {
+		content: "";
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background-image: url("../../assets/paw-trail.svg");
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+		z-index: 1;
+		opacity: 0.45;
+	}
+
+	width: 100%;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: colors.$primary-blue;
+	color: colors.$primary-white;
+	border-bottom: 0.5rem solid colors.$primary-green;
+
+	@include mixins.tablet {
+		padding: 1rem 2.25rem;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	@include mixins.desktop {
+		padding: 1rem 5rem;
+	}
+
+	&__icon {
+		z-index: 2;
+		height: 3rem;
+		width: 3rem;
+
+		@include mixins.tablet {
+			height: 3.5rem;
+			width: 3.5rem;
+		}
+	}
+
+	&__link-right {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: colors.$primary-white;
+		text-decoration: none;
+		font-size: 1.5rem;
+
+		@include mixins.tablet {
+			font-size: 1.5rem;
+		}
+	}
+
+	&__right {
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+
+		@include mixins.tablet {
+			padding: 1rem;
+			width: 50%;
+			flex-direction: row;
+			justify-content: flex-end;
+			align-items: center;
+		}
+	}
+
+	&__request {
+		width: 80%;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+
+		@include mixins.tablet {
+		}
+	}
+
+	&__request-link {
+		z-index: 2;
+		padding-right: 1rem;
+		color: colors.$primary-white;
+		text-decoration: none;
+		font-size: 1rem;
+		color: colors.$primary-white;
+		font-weight: 600;
+
+		@include mixins.tablet {
+			font-size: 1.5rem;
+			padding-right: 2rem;
+		}
+	}
+
+	&__homelink {
+		z-index: 2;
+
+		width: 100%;
+		display: flex;
+		color: colors.$primary-white;
+		text-decoration: none;
+
+		@include mixins.tablet {
+			font-size: 2.5rem;
+		}
+	}
+
+	&__profile {
+		z-index: 2;
+		flex: 1 0 auto;
+	}
+
+	&__account {
+		z-index: 2;
+		width: 20%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	&__home {
+		z-index: 2;
+		margin-bottom: 1rem;
+		width: 100%;
+		border-bottom: 0.0625rem solid colors.$primary-border;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		font-size: 1rem;
+		line-height: 1.5rem;
+		font-weight: 700;
+
+		@include mixins.tablet {
+			width: 100%;
+			border: none;
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+		}
+	}
+}

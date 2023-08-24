@@ -1,0 +1,30 @@
+@use '../../styles/partials/mixins';
+@use '../../styles/partials/colors';
+@use '../../styles/partials/fonts';
+@use '../../styles/partials/checkbox';
+
+.add-animal{
+  display:flex;
+  flex-direction: column;
+  color: colors.$secondary-slate;
+  align-items: center;
+
+    &__env{
+      width:75%;
+      
+      display:flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: flex-start;
+    }
+    &__title{
+      margin-top: 1rem;
+      align-self: flex-start;
+    }
+    &__box{
+      margin: 1rem;
+    }
+}
+
+
+  

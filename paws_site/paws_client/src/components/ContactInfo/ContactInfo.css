@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "Avenir Next LT";
+  src: url("../../assets/Font/BricolageGrotesque-VariableFont_opsz,wdth,wght.ttf") format("truetype");
+  font-display: swap;
+}
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  background-color: #f5f5f5;
+  border: 0.0625rem solid #06D6A0;
+  border-radius: 0.3rem;
+  margin: 1rem;
+  padding: 1rem;
+}
+.contact-info__title {
+  font-size: 2rem;
+  padding: 1rem;
+  color: #5C667E;
+  text-align: left;
+}
+.contact-info__label {
+  font-weight: 600;
+  padding-top: 0.5rem;
+}
+.contact-info__infodiv {
+  display: flex;
+  padding: 0.5rem;
+}/*# sourceMappingURL=ContactInfo.css.map */

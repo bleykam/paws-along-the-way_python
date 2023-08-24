@@ -1,0 +1,51 @@
+@use "./colors" as *;
+
+// Breakpoints
+@mixin tablet {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1280px) {
+    @content;
+  }
+}
+
+@mixin button {
+  font-size: 0.5rem;
+  margin: 1rem;
+  padding: 0.5rem;
+  background-color: $primary-button;
+  border: 0.0625rem solid $primary-blue;
+  color: $primary-white;
+  border-radius: 0.25rem;
+  font-size: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  &:hover {
+    background-color: $primary-hover;
+}
+@media (min-width: 768px) {
+  font-size: 0.75rem;
+  
+}
+};
+
+
+@mixin submit-button {
+  margin: 1rem;
+  padding: 0.5rem;
+  background-color: $primary-green;
+  border: 0.0625rem solid $primary-button;
+  color: $primary-white;
+  border-radius: 0.5rem;
+  font-size: inherit;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  &:hover {
+    background-color: $primary-hover;
+}
+};

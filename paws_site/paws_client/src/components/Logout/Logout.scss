@@ -1,0 +1,19 @@
+@use "../../styles/partials/colors";
+@use "../../styles/partials/mixins";
+@use "../../styles/partials/fonts";
+
+
+.logout-form{
+    display: flex;
+    flex-direction: column;
+    &__div{
+        text-align: center;
+        margin: 0 auto;
+    }
+    &__input{
+        color: white; 
+        margin: 0 auto; 
+        background-color: #06D6A0; 
+        border-radius: 0.25rem;
+    }
+}

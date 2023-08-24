@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>PAWS-INDEX</title>
+  </head>
+  <body>
+  
+
+    <div id="root">  </div>
+    <div class="container">
+      {% block body %}
+      REQUEST.USER: {{request.user}}
+     REMOTE_USER: {{request.REMOTE_USER}}
+   
+   
+      {% endblock %}
+  </div>
+  <div>
+    <script src="{% static 'index.js' %}"></script>
+    <script src="{% static './js/bundle.js' %}"></script>
+
+  </body>
+</html>
+

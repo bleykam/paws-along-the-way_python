@@ -1,0 +1,120 @@
+@use "../../styles/partials/colors";
+@use "../../styles/partials/mixins";
+
+.organization-page {
+    background-color: colors.$primary-background;
+
+    &__heading {
+        margin: 0 0 1rem;
+        padding: 0 0 0.5rem;
+        border-bottom: 0.3125rem solid colors.$primary-border;
+    }
+
+    &__title {
+        font-size: 2rem;
+        padding: 1rem;
+        color: colors.$secondary-slate;
+        text-align: left;
+
+        @include mixins.tablet {
+            padding: 0;
+        }
+    }
+
+    &__label {
+        font-weight: 600;
+    }
+
+
+    &__section {
+        @include mixins.tablet {
+            margin: 1rem 2.5rem;
+        }
+
+        @include mixins.desktop {
+            margin: 1rem 5rem;
+        }
+    }
+
+    &__header-bar {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 1rem;
+
+        @include mixins.tablet {
+            padding: 2.25rem;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 0.25rem solid colors.$primary-border;
+            border-bottom: 0.25rem solid colors.$primary-border;
+        }
+    }
+
+    &__search {
+        height: 2rem;
+        border-radius: .25rem;
+        padding: 1rem;
+
+        @include mixins.tablet {}
+    }
+
+    &__contact {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        @include mixins.tablet {
+            width: 50%;
+        }
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+
+        @include mixins.tablet {
+            flex-direction: row;
+        }
+    }
+
+    &__address {
+        padding: 0.5rem;
+
+        @include mixins.tablet {
+            width: 50%;
+        }
+    }
+
+    &__contact-p {
+        padding: 1rem;
+        margin: 0 auto;
+        text-align: center;
+
+        @include mixins.tablet {}
+    }
+
+    &__add {
+        text-decoration: none;
+        color: colors.$secondary-blue;
+    }
+}
+
+
+.plus {
+    background: colors.$secondary-blue;
+    height: 1.5rem;
+    position: relative;
+    width: 8px;
+}
+
+.plus:after {
+    background: #333;
+    content: "";
+    height: 8px;
+    left: -21px;
+    position: absolute;
+    top: 21px;
+    width: 50px;
+}

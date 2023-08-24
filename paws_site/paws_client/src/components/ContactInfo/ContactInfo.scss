@@ -1,0 +1,31 @@
+@use "../../styles/partials/colors";
+@use "../../styles/partials/mixins";
+@use "../../styles/partials/fonts";
+
+.contact-info{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    background-color: colors.$primary-background;
+    border: 0.0625rem solid colors.$primary-green;
+    border-radius: 0.3rem;
+    margin: 1rem;
+    padding: 1rem;
+    
+    &__title {
+        font-size: 2rem;
+        padding: 1rem;
+        color: colors.$secondary-slate;
+        text-align: left;
+    }
+
+    &__label {
+        font-weight: 600;
+        padding-top: 0.5rem;
+    }
+
+  &__infodiv {
+    display: flex;
+    padding: 0.5rem;
+  }
+}
