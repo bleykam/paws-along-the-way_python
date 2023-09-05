@@ -6,6 +6,7 @@ import { useGetEffect } from "../../utils";
 export default function AddAnimal() {
    const [orgList, setOrgList] =useState("");
     useGetEffect('/api/organizations/', setOrgList);
+    console.log(orgList)
 
 
     const [values, setValues] = useState({

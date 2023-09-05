@@ -1,21 +1,20 @@
 import "./OrganizationPage.scss";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import React, {useState} from "react";
 import AnimalRequestCard from "../../components/AnimalRequestCard/AnimalRequestCard";
 import { useGetEffect } from "../../utils";
 
 
 export default function OrganizationPage({ animalList }) {
-  const navigate = useNavigate();
-  const userJSON = localStorage.getItem('user');
-  const user = JSON.parse(userJSON);
+  console.log(animalList)
+  const id = useParams();
+  const orgId = id['orgId']
+  console.log(orgId)
   const [organization, setOrganization] = useState("");
+  console.log(organization)
 
-  if(!user){
-    navigate("/login");
-  };
-
-  useGetEffect(`api/organizations/${user.organization}`, setOrganization);
+ 
+  useGetEffect(`api/organizations/${orgId}`, setOrganization);
 
   
   if(!organization){
@@ -29,11 +28,11 @@ export default function OrganizationPage({ animalList }) {
 
   return (
     <main className="organization-page">
-      <h1 className="profile__heading">Welcome, {user.first_name} {user.last_name}!</h1>
+      <h1 className="profile__heading">{organization.name}!</h1>
       <div className="organization-page__info">
 
         <div className="organization-page__address">
-          <h2>{organization.name}</h2>
+        
 
           <p className="organization-page__contact-p">{organization.address.address1} </p>
           {organization.address.address2 && <p>{organization.address.address2}</p>}

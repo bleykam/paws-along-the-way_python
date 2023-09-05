@@ -5,7 +5,7 @@ import React from 'react';
 import Logout from "../Logout/Logout.js"
 
 export default function NavBar() {
-  const token = localStorage.getItem("token");
+  const user = localStorage.getItem("user");
 
   return (
     <header className="header">
@@ -22,7 +22,7 @@ export default function NavBar() {
               <img className="header__icon" src={head} alt="profile icon"></img>
             </NavLink>
             </div>
-        {token?
+        {user?
         (<NavLink to="/logout" className="header-profile">
               <Logout />
           </NavLink>)

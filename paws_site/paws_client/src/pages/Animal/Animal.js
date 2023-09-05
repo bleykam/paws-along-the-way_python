@@ -6,6 +6,7 @@ import axios from "axios";
 import { convertTime } from "../../utils.js";
 
 export default function Animal({ animalList, reqList }) {
+	console.log(animalList)
 	const { animalId } = useParams();
 	const animal = animalList.filter((animal) => animal.id === animalId)[0];
 	const req = reqList.filter((req) => req.animal === animalId)[0];
@@ -37,6 +38,7 @@ export default function Animal({ animalList, reqList }) {
 				</div>
 				<div className="animal-page__content">
 					<h2 className="animal-page__name">{animal.name}</h2>
+					<Link to={`/organization/${animal.organization}`}><span>Org Info</span></Link>
 
 					<div>
 						<ul className="animal-page__attribute-list">

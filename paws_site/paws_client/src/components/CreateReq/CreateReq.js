@@ -1,14 +1,15 @@
 import "./CreateReq.scss";
 import React, {useState, useEffect, useRef} from 'react';
 import AnimalRequestCard from "../AnimalRequestCard/AnimalRequestCard";
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import "react-datetime/css/react-datetime.css";
 import Datetime from 'react-datetime';
 import axios from "axios";
-import {loader, formatAddress} from "../../utils"
+import {loader, formatAddress, useGetEffect} from "../../utils"
 
 
-export default function CreateReq({animalList, organizations}){
+export default function CreateReq({animalList, }){
+    const [organization, setOrganization] = useState("");
     const [values, setValues] = useState({  time: "", user: "" });
     const timeChoices = ["", "MORNING", "AFTERNOON", "EVENING", "FLEXIBLE"];
     const id = useParams();
@@ -30,7 +31,8 @@ export default function CreateReq({animalList, organizations}){
     };
  
     const animal = animalList.filter((animal)=>animal.id=== id.animalId)[0];
-    const organization = organizations.filter((org)=> animal.organization === org.id)[0]
+    useGetEffect(`api/organizations/${animal.organization}`, setOrganization);
+    
    
    
     useEffect(() => {
@@ -85,7 +87,7 @@ export default function CreateReq({animalList, organizations}){
    
 
             <div className="animal-tile-outer" > 
-                <AnimalRequestCard animal={animal} />
+              <Link to={`/animal/${animal.id}`}><AnimalRequestCard animal={animal} /></Link> 
             </div>
         </section>
          

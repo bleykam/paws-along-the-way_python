@@ -4,12 +4,13 @@ import axios from "axios";
 import "./App.scss";
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./pages/Home/Home.js";
-import OrganizationPage from "./pages/Organization Page/OrganizationPage.js";
+import OrganizationPage from "./pages/Organization Page /OrganizationPage.js";
 import Animal from "./pages/Animal/Animal";
 import CreateReq from "./components/CreateReq/CreateReq.js";
 import Login from "./components/Login/Login.js";
 import Logout from "./components/Logout/Logout.js";
 import AddAnimal from "./components/AddAnimal/AddAnimal";
+import UserPage from "./pages/UserPage/UserPage";
 
 
 
@@ -63,7 +64,8 @@ export default function App() {
           <div className="page-container">
             <Routes>
               <Route path="/" element={<Home requestList={requestList} animalList={animalList} />} />
-              <Route path="/organization" element={<OrganizationPage animalList={animalList} />} />
+              <Route path="/organization" element={<UserPage animalList={animalList} />} />
+              <Route path="/organization/:orgId" element={<OrganizationPage animalList={animalList} />} />
               <Route path="/animal/:animalId" element={<Animal animalList={animalList} reqList={requestList} />} />
               <Route path="/createrequest/:animalId" element={<CreateReq animalList={animalList} />} />
               <Route path="/login" element={<Login />} />
