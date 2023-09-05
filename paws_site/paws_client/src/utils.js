@@ -1,24 +1,23 @@
 import { Loader } from "@googlemaps/js-api-loader";
 import { format } from "date-fns";
 import { useEffect, useRef, useState } from "react";
+import axios from 'axios';
+import Cookies from 'js-cookie';
+
+export const csrf_token = Cookies.get('csrftoken');
 
 export  const token = localStorage.getItem("token");
 export const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
-export const petToken = process.env.REACT_PET_TOKEN;
 
 
-export const base_url = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_BASE_URL_PROD  || "http://localhost:5000"
-  : process.env.REACT_APP_BASE_URL_DEV ?? "http://localhost:5000";
+export const base_url = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_BASE_URL_PROD  || "http://localhost:8000"
+  : process.env.REACT_APP_BASE_URL_DEV ?? "http://localhost:8000";
 
-export const petConfig = {
-  headers: {
-    Authorization: `Bearer ${petToken}`,
-  },
-};
 
 export  const config = {
   headers: {
       Authorization: `Bearer ${token}`,
+      'X-CSRFToken': csrf_token, 
   },
 };
   
@@ -61,7 +60,7 @@ export const useAutocomplete = () => {
   const [placeId, setPlaceId] = useState("");
 
   useEffect(() => {
-    loader.load().then(() => {
+    loader.useLibrary('core').then(() => {
       const autocomplete = new window.google.maps.places.Autocomplete(inputRef.current);
 
       autocomplete.addListener("place_changed", () => {
@@ -76,8 +75,17 @@ export const useAutocomplete = () => {
   return { inputRef, value, setValue, location, placeId };
 };
 
+export function useGetEffect(endpoint, handleResponse, condition="",){
+  useEffect(() => {
+    axios.get(`/${endpoint}/`)
+    .then((response)=>{
+      handleResponse(response.data);
+    })
+    .catch((error)=>console.log(error));
 
-
+  }, [condition])
+  
+};
 
 
 export function formatAddress(place) {
@@ -108,7 +116,7 @@ if(place.address_components){
         break;
 
       case "route": {
-        address1 += `${component.long_name}`;
+        address1 += `${component.long_name};;;;`;
         break;
       }
 
@@ -135,7 +143,7 @@ lng = locationCoor.lng();
 
 let address={
   "address1": address1,
-  "address2": "",
+  "address2": address2,
   "city": city,
   "state": state,
   "postcode": postcode,
@@ -146,7 +154,6 @@ return address
 }
 
 }
-
 
 export function getCookie(name) {
   const value = "; " + document.cookie;

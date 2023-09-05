@@ -11,23 +11,21 @@ import Login from "./components/Login/Login.js";
 import Logout from "./components/Logout/Logout.js";
 import AddAnimal from "./components/AddAnimal/AddAnimal";
 
+
+
 export default function App() {
 
   const [requestList, setRequestList] = useState(null);
-  const [orgList, setOrgList] = useState(null);
   const [animalList, setAnimalList] = useState(null);
-  const [users, setUsers] = useState("");
-
 
 
   useEffect(() => {
     // An array of URLs for the Axios requests
     const urls = [
-      'http://127.0.0.1:8000/api/organizations/',
       'http://127.0.0.1:8000/api/animals/',
-      'http://127.0.0.1:8000/api/tranportrequest/',
-      'http://127.0.0.1:8000/api/users/'
+      'http://127.0.0.1:8000/api/tranportrequest/'
     ];
+
 
     // Function to make an Axios request and return a promise
     function fetchData(url) {
@@ -40,10 +38,8 @@ export default function App() {
     // Execute all requests concurrently and wait for all promises to resolve
     Promise.all(promises)
       .then(responses => {
-        setOrgList(responses[0].data);
-        setAnimalList(responses[1].data);
-        setRequestList(responses[2].data);
-        setUsers(responses[3].data);
+        setAnimalList(responses[0].data);
+        setRequestList(responses[1].data);
       })
       .catch(error => {
         console.log(error);
@@ -52,7 +48,7 @@ export default function App() {
   }, []);
 
 
-    if (!orgList) {
+    if (!animalList) {
       return (
         <main className="profile">
           <p>Loading...</p>
@@ -67,12 +63,12 @@ export default function App() {
           <div className="page-container">
             <Routes>
               <Route path="/" element={<Home requestList={requestList} animalList={animalList} />} />
-              <Route path="/organization" element={<OrganizationPage orgList={orgList} users={users} animalList={animalList} />} />
+              <Route path="/organization" element={<OrganizationPage animalList={animalList} />} />
               <Route path="/animal/:animalId" element={<Animal animalList={animalList} reqList={requestList} />} />
-              <Route path="/createrequest/:animalId" element={<CreateReq animalList={animalList} organizations={orgList} />} />
+              <Route path="/createrequest/:animalId" element={<CreateReq animalList={animalList} />} />
               <Route path="/login" element={<Login />} />
               <Route path="/logout" element={<Logout />} />
-              <Route path="/addanimal" element={<AddAnimal orgList={orgList} />} />
+              <Route path="/addanimal" element={<AddAnimal  />} />
             </Routes>
           </div>
         </div>

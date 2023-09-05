@@ -1,20 +1,31 @@
 import "./OrganizationPage.scss";
-import { Link } from "react-router-dom";
-import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import React, {useState} from "react";
 import AnimalRequestCard from "../../components/AnimalRequestCard/AnimalRequestCard";
+import { useGetEffect } from "../../utils";
 
 
-export default function OrganizationPage({ orgList, animalList, users }) {
-  const user_id = localStorage.getItem('user');
+export default function OrganizationPage({ animalList }) {
+  const navigate = useNavigate();
+  const userJSON = localStorage.getItem('user');
+  const user = JSON.parse(userJSON);
+  const [organization, setOrganization] = useState("");
 
-  const user = users.filter((user) => user.id === Number(user_id))[0];
-  const organization = orgList.filter((org) => org.id === user.organization)[0];
+  if(!user){
+    navigate("/login");
+  };
 
-  if (!orgList) {
-    return <p>Loading...</p>
+  useGetEffect(`api/organizations/${user.organization}`, setOrganization);
+
+  
+  if(!organization){
+    return <p>Page coming soon</p>
   }
 
+
+
   const animals = animalList.filter((animal) => animal.organization === organization.id);
+
 
   return (
     <main className="organization-page">

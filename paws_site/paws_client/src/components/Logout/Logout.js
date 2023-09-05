@@ -1,16 +1,18 @@
 import "./Logout.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { googleLogout } from '@react-oauth/google';
 
 export default function Logout() {
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleLogout = (e) => {
+    googleLogout();
     e.preventDefault();
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    localStorage.clear();
+    navigate("/login");
 
-    axios.get('http://localhost:8000/logout/')
+    axios.get('/logout/')
       .then(response => {
         navigate("/login");
       })
@@ -21,7 +23,7 @@ export default function Logout() {
 
   return (
     <main>
-      <button className="submit-button" onClick={handleSubmit}>Logout</button>
+      <button className="submit-button" onClick={handleLogout}>Logout</button>
     </main>
   )
 }

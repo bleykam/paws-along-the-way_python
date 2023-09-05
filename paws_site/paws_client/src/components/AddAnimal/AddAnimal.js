@@ -1,8 +1,13 @@
 import "./AddAnimal.scss"
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import axios from 'axios';
+import { useGetEffect } from "../../utils";
 
-export default function AddAnimal({ orgList }) {
+export default function AddAnimal() {
+   const [orgList, setOrgList] =useState("");
+    useGetEffect('/api/organizations/', setOrgList);
+
+
     const [values, setValues] = useState({
         description: "", dogs: "", cats: "", children: "", name: "", spayed_neutered: "", house_trained: "", declawed: "",
         special_needs: "", shots_current: "", mixed: "", gender: "", size: "", type: "", species: "", breeds: "", colors: "", age: "", coat: "", active: "", organization: "",
@@ -39,7 +44,7 @@ export default function AddAnimal({ orgList }) {
             "organization": values.organization
         }
 
-        axios.post(`http://localhost:8000/api/animals/`, newAnimal)
+        axios.post(`/api/animals/`, newAnimal)
             .then(() => {
                 event.target.reset();
             })
@@ -72,7 +77,7 @@ export default function AddAnimal({ orgList }) {
             <div className="create-request__div">
                 <label className="create-request__label" htmlFor="organization">Organization: </label>
                 <select className="create-request__input" defaultValue="" name="organization" id="organization" onChange={handleChange}>
-                    {orgList.map(org => (
+                    {orgList && orgList.map(org => (
                         <option key={org.id} value={org.id}>{org.name}</option>
                     ))}
                 </select>

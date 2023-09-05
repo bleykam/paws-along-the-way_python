@@ -1,19 +1,47 @@
 import "./Login.scss";
+import React, { useState } from "react";
 import axios from "axios";
 import Logout from "../Logout/Logout.js";
-import { useNavigate } from "react-router-dom";
-import Cookies from 'js-cookie';
+import { useNavigate} from "react-router-dom";
+import { GoogleLogin } from '@react-oauth/google';
+import { csrf_token } from "../../utils";
+
 
 export default function Login(){
- const token = localStorage.getItem('token');
- const navigate = useNavigate();
- const csrf_token = Cookies.get('csrftoken');
+  const token = localStorage.getItem('token');
+  const userJSON = localStorage.getItem('user');
+  const user = JSON.parse(userJSON);
+  const navigate = useNavigate();
   
- if(token){
+  if(user){
     return <Logout />
   };
-   
-  const handleSubmit = (e) => {
+  const handleGoogleLoginSuccess = (credentialResponse) => {
+    // Your logic for handling the successful login
+    const postData = { 'credential': credentialResponse.credential };
+      return axios.post('http://localhost:8000/googleLogin/', postData)
+      .then(response=>{
+        const userJSON = JSON.stringify(response.data.user);
+        localStorage.setItem('user', userJSON)
+        navigate("/");
+      })
+      .catch((error) =>{
+        console.log({'Login Failed': error});
+      })
+ 
+  };
+
+  // Create an instance of GoogleLogin with the onSuccess prop set to your handler
+  const googleLoginProps: GoogleLoginProps = {
+    onSuccess: handleGoogleLoginSuccess,
+    // Other props...
+  };
+
+ 
+
+  
+  const handleCredSubmit = (e) => {
+    
     e.preventDefault();
     
     axios.post(`http://127.0.0.1:8000/login/`, {   
@@ -21,23 +49,44 @@ export default function Login(){
         password: e.target.password.value  
     })
     .then((response) => {
-      const user = response.data.user_id
+      console.log("REG", response.data)
+      const user_id = response.data.user_id
       const token = response.data.token;
+      console.log("TOKEN", token)
+
+    // Store token and user_id in localStorage
       localStorage.setItem('token', token);
-      localStorage.setItem('user', user);
-      axios.defaults.headers.common.Authorization = `Token ${token}`;   
-      navigate("/organization");
-    })
+      localStorage.setItem('user_id', user_id);
+
+      // Set Authorization header for subsequent axios requests
+      axios.defaults.headers.common.Authorization = `Token ${token}`; 
+
+       // Fetch user data using the user_id
+       return axios.get(`http://127.0.0.1:8000/api/users/${user_id}`)
+      .then((res) => {
+        const userJSON = JSON.stringify(res.data);
+        // Store user object in localStorage
+        localStorage.setItem('user', userJSON);
+      
+        // Navigate to home page after successful login
+        navigate("/");
+      })
     .catch((error) => {
         console.log(error);
-    });    
+      });
+    })
   }
 
     return(
     <main>
-      <h2 className="login-form__title">Log In</h2>
-      <form className="login-form"  onSubmit={handleSubmit}>
+       <h2 className="login-form__title">Log In</h2>
+
+        <GoogleLogin {...googleLoginProps} />
+
+      <form className="login-form"  onSubmit={handleCredSubmit}>
       <input type="hidden" value ={csrf_token} />
+     
+      <span className="divider sign-in" >*** or sign in with email ***</span>
       <div className="login-form__div">
         <input className="login-form__input" type="text" name="username" placeholder="Username" />
       </div>
@@ -48,7 +97,7 @@ export default function Login(){
         <button className="submit-button" type="submit">Log In</button>
       </div>
       </form>
-    
+      
     </main>
     )
       

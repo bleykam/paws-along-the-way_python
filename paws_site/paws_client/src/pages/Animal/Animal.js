@@ -64,7 +64,7 @@ export default function Animal({ animalList, reqList }) {
 			</div>
 			{!req ? (
 				<Link to={`/createrequest/${animal.id}`}>
-					<button class="button-91">Create Request</button>
+					<button class="button-62">Create Request</button>
 				</Link>) : <div></div>}
 
 
