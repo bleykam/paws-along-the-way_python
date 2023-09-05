@@ -12,9 +12,18 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+BASE_FRONTEND_URL = os.environ.get('DJANGO_BASE_FRONTEND_URL', default='http://localhost:3000')
+BACKEND_URL='http://localhost:8000'
+
+#Google OAUTH Information
+GOOGLE_CLIENT_ID = config('GOOGLE_OAUTH2_CLIENT_ID')
+GOOGLE_CLIENT_SECRET = config('GOOGLE_OAUTH2_CLIENT_SECRET')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -26,7 +35,7 @@ SECRET_KEY = 'django-insecure-5t8f2qnla8^u5usm#7!(!6^rx#5dny*$=t+sv3lg&66e(tje@0
 DEBUG = True
 AUTH_USER_MODEL = 'paws_server.User'
 
-LOGIN_REDIRECT_URL='index'
+
 CSRF_USE_SESSIONS = True
 ALLOWED_HOSTS = ['*', 'http://localhost:3000']
 CSRF_COOKIE_DOMAIN =  ['http://localhost:3000']
@@ -35,14 +44,25 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://127.0.0.1:8000",
+    'http://localhost:8000'
 
+]
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:8000",
+    'http://localhost:8000'
 ]
 # Application definition
 CSRF_HEADER_NAME = 'X-CSRFToken'
-INSTALLED_APPS = [
-    'paws_server',
+
+DEFAULT_APPS = [
+    'oauth2_provider',
+    'rest_framework_simplejwt',
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
@@ -54,6 +74,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+CUSTOM_APPS=[
+    'paws_server'   
+]
+
+INSTALLED_APPS =  DEFAULT_APPS + CUSTOM_APPS
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -61,7 +87,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-     "django.contrib.auth.middleware.RemoteUserMiddleware",
+    'django.contrib.auth.middleware.RemoteUserMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -128,7 +154,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
@@ -151,11 +177,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.TokenAuthentication'
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework_simplejwt.authentication.JWTStatelessUserAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticated',
     )
 }
 
@@ -183,3 +211,5 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.RemoteUserBackend",
     'django.contrib.auth.backends.ModelBackend'
 ]
+
+

@@ -3,7 +3,6 @@ from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 import uuid
 
-
 class Organization(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100)
@@ -18,11 +17,12 @@ class Organization(models.Model):
         return f" {self.name} - " \
                f" {self.mission_statement} "
 
-
 class User(AbstractUser):
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE, blank=True, null=True)
     isDriver = models.BooleanField(default=False)
-
+    
+    def __str__(self):
+       return self.username
 
 class Address(models.Model):
     address1 = models.CharField(max_length=100, blank=True, null=True)
@@ -32,7 +32,6 @@ class Address(models.Model):
     postcode = models.CharField(max_length=10)
     country = models.CharField(max_length=50)
     locationObj = models.JSONField(blank=True, null=True)
-
 
 class Animal(models.Model):
     # SMALL (1-15 lbs), MEDIUM (16-40 lbs), LARGE (40-100 lbs), GIANT (101+ lbs)
@@ -71,12 +70,10 @@ class Animal(models.Model):
         return f" {self.name} - " \
                f" {self.type} "
 
-
 class Photo(models.Model):
     animal = models.ForeignKey(Animal, on_delete=models.CASCADE, blank=True, null=True)
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE, blank=True, null=True)
     image_url = models.URLField(blank=True, null=True)
-
 class SocialMedia(models.Model):
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE, blank=True, null=True)
     facebook = models.URLField(blank=True, null=True)
@@ -94,7 +91,6 @@ class Hours(models.Model):
     friday = models.CharField(max_length=100, blank=True, null=True)
     saturday = models.CharField(max_length=100, blank=True, null=True)
     sunday = models.CharField(max_length=100, blank=True, null=True)
-
 
 class TransportRequest(models.Model):
     TIME_CHOICES = [

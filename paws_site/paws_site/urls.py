@@ -15,16 +15,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from paws_server import views
-from paws_server.views import AnimalViewSet, OrganizationViewSet, TranportRequestViewSet, UserViewSet, indexView, CreateUserAPIView, LogoutUserAPIView, CustomAuthToken, login_view, logout_view
+from paws_server.views import AnimalViewSet, OrganizationViewSet, TranportRequestViewSet, UserViewSet, indexView, login_view, logout_view, googleLogin
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from django.conf import settings
-from django.views.generic import TemplateView
-from django.contrib.auth.views import LoginView, LogoutView
-from rest_framework.authtoken.views import obtain_auth_token
-
-
 
 router = routers.DefaultRouter()
 router.register(r'users',UserViewSet,basename="user")
@@ -32,19 +26,14 @@ router.register(r'animals', AnimalViewSet,  basename='animal')
 router.register(r'organizations', OrganizationViewSet)
 router.register(r'tranportrequest', TranportRequestViewSet)
 
-
 urlpatterns = [
+    path('api/', include(router.urls)),
+    path("api-auth/", include("rest_framework.urls")),
+    path('googleLogin/', googleLogin, name='google-login'),
     path('admin/', admin.site.urls),
     path('', indexView, name='index'),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('api-auth/login/', CustomAuthToken.as_view()),
-    path('api-auth/logout/', LogoutUserAPIView.as_view(), name='auth_user_logout'),
-    path('api-auth/', include('rest_framework.urls')),
-    path('api/', include(router.urls)),
-    path('api-auth/register/', CreateUserAPIView,name='auth_user_create'),
     path('login/', login_view, name="login"),
-    path('logout/', logout_view, name='logout' )
-    
+    path('logout/', logout_view, name='logout' ),
 ]
 
 

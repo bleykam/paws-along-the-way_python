@@ -15,7 +15,7 @@
 
 <h2 style="color: #5C667E; text-align:center;"">Login</h2>
 
-
+<input type="hidden" name="next" value="{{ next }}" />
 
 <form action="{% url 'login' %}" method="post">
     {% csrf_token %}
