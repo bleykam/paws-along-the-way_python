@@ -18,7 +18,7 @@ export default function NavBar() {
         <div className="header__account">
           <div className="header__profile">
             {" "}
-            <NavLink to="/organization">
+            <NavLink to="/userpage">
               <img className="header__icon" src={head} alt="profile icon"></img>
             </NavLink>
             </div>

@@ -11,7 +11,7 @@ import {loader, formatAddress, useGetEffect} from "../../utils"
 export default function CreateReq({animalList, }){
     const [organization, setOrganization] = useState("");
     const [values, setValues] = useState({  time: "", user: "" });
-    const timeChoices = ["", "MORNING", "AFTERNOON", "EVENING", "FLEXIBLE"];
+    const timeChoices = ["", "Morning", "Afternoon", "Evening", "Flexible"];
     const id = useParams();
     const originRef = useRef("");
     const destinationRef = useRef("");
@@ -87,7 +87,7 @@ export default function CreateReq({animalList, }){
    
 
             <div className="animal-tile-outer" > 
-              <Link to={`/animal/${animal.id}`}><AnimalRequestCard animal={animal} /></Link> 
+              <Link to={`/animal/${animal.id}`}><AnimalRequestCard animal={animal} />{animal.name}</Link> 
             </div>
         </section>
          

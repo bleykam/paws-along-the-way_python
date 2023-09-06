@@ -75,7 +75,7 @@ export default function Login() {
 		<main>
 			<h2 className="login-form__title">Log In</h2>
 
-			<GoogleLogin {...googleLoginProps} />
+			<div className="login-form__google"><GoogleLogin {...googleLoginProps} /></div>
 
 			<form className="login-form" onSubmit={handleSubmit}>
 				<input type="hidden" value={csrf_token} />
@@ -100,7 +100,7 @@ export default function Login() {
 					/>
 				</div>
 				<div className="login-form__div">
-					<button className="submit-button" type="submit">
+					<button className="login-form__button" type="submit">
 						Log In
 					</button>
 				</div>

@@ -38,6 +38,7 @@
 	@include mixins.desktop {
 		padding: 1rem 5rem;
 	}
+	
 
 	&__icon {
 		z-index: 2;
@@ -84,8 +85,7 @@
 		align-items: center;
 		justify-content: flex-end;
 
-		@include mixins.tablet {
-		}
+		@include mixins.tablet {}
 	}
 
 	&__request-link {

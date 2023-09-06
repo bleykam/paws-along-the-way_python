@@ -6,7 +6,6 @@ import axios from "axios";
 import { convertTime } from "../../utils.js";
 
 export default function Animal({ animalList, reqList }) {
-	console.log(animalList)
 	const { animalId } = useParams();
 	const animal = animalList.filter((animal) => animal.id === animalId)[0];
 	const req = reqList.filter((req) => req.animal === animalId)[0];
@@ -38,7 +37,7 @@ export default function Animal({ animalList, reqList }) {
 				</div>
 				<div className="animal-page__content">
 					<h2 className="animal-page__name">{animal.name}</h2>
-					<Link to={`/organization/${animal.organization}`}><span>Org Info</span></Link>
+					<Link to={`/organization/${animal.organization}`} className="animal-page__link"><span >Contact Info</span></Link>
 
 					<div>
 						<ul className="animal-page__attribute-list">
@@ -59,14 +58,14 @@ export default function Animal({ animalList, reqList }) {
 							</li>
 						</ul>
 					</div>
-					<p className="animal-page__description">
+					<div className="animal-page__description">
 						{animal.description}
-					</p>
+					</div>
 				</div>
 			</div>
 			{!req ? (
 				<Link to={`/createrequest/${animal.id}`}>
-					<button class="button-62">Create Request</button>
+					<button className="animal-page__button">Create Request</button>
 				</Link>) : <div></div>}
 
 
@@ -77,9 +76,9 @@ export default function Animal({ animalList, reqList }) {
 
 					<div className="animal-page__bottom">
 						<div className="animal-page__trans-info">
-							<p className="animal-page__trans-info-p">Driver: </p>
-							<p className="animal-page__trans-info-p">{req.time}</p>
-							<p className="animal-page__trans-info-p">{convertTime(req.date)}</p>
+							<p className="animal-page__trans-info-p"><strong>Driver: </strong></p>
+							<p className="animal-page__trans-info-p animal-page__time"><strong>Time: </strong>{req.time}</p>
+							<p className="animal-page__trans-info-p"><strong>Date: </strong>{convertTime(req.date)}</p>
 						</div>
 
 						<div className="animal-page__bottom-address">

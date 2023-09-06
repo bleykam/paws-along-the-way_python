@@ -1,6 +1,6 @@
 @use "../../styles/partials/colors";
 @use "../../styles/partials/mixins";
-@use "../../styles/partials/fonts";
+
 
 .animal-page {
     display: flex;
@@ -11,38 +11,72 @@
     }
 
     &__attribute-list {
+        list-style-type: none;
         box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
         display: flex;
-        padding-left: 1rem;
+        padding: 1rem;
         border-top: 0.125rem solid colors.$secondary-slate;
         border-bottom: 0.125rem solid colors.$secondary-slate;
+
+        @include mixins.tablet {
+            list-style-type: disc;
+            flex-direction: row;
+            padding-left: 1rem;
+        }
     }
 
     &__attribute {
-        padding: 0.5rem;
-        margin: 1rem;
+        padding: 0.25rem;
 
+        &::after {
+            content: " /";
+
+            @include mixins.tablet {
+                content: "";
+            }
+        }
+
+        @include mixins.tablet {
+            padding: 0.5rem;
+            margin: 1rem;
+        }
+    }
+
+    &__button {
+        margin: 1rem;
+        @include mixins.request-button;
     }
 
     &__description {
         padding: 1rem;
         text-align: left;
         line-height: 2;
+        width: 100%;
+
+        @include mixins.tablet {
+            padding: 1rem;
+            text-align: left;
+            line-height: 2;
+        }
     }
 
     &__top {
         display: flex;
         flex-direction: column;
+        width: 100%;
 
         @include mixins.tablet {
             flex-direction: row;
         }
     }
 
-
     &__content {
-        width: 75%;
-        padding: 1rem;
+        width: 100%;
+
+        @include mixins.tablet {
+            width: 75%;
+            padding: 1rem;
+        }
     }
 
     &__pic-frame {
@@ -55,7 +89,6 @@
             width: 25%;
             padding: 1rem;
         }
-
     }
 
     &__pic {
@@ -67,13 +100,11 @@
         max-width: 100%;
         height: auto;
         width: 100%;
-
     }
 
     &__pickup {
         white-space: break-spaces;
         text-align: right;
-
     }
 
     &__name {
@@ -82,29 +113,45 @@
         padding: 1rem;
     }
 
+    &__link {
+        @include mixins.request-button;
+        margin: 1rem;
+        text-decoration: none;
+        display: block;
+        max-width: fit-content;
+    }
+
     &__breed {
         text-align: left;
         padding: 1rem;
-
     }
 
     &__bottom {
         box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
         display: flex;
-        padding-left: 1rem;
-        border-top: 0.125rem solid colors.$secondary-slate;
-        border-bottom: 0.125rem solid colors.$secondary-slate;
-        justify-content: space-around;
-        border-radius: 0.125rem;
+        flex-direction: column;
 
-        @include mixins.tablet {}
+        @include mixins.tablet {
+            flex-direction: row;
+            padding-left: 1rem;
+            border-top: 0.125rem solid colors.$secondary-slate;
+            border-bottom: 0.125rem solid colors.$secondary-slate;
+            justify-content: space-around;
+            border-radius: 0.125rem;
+        }
     }
 
     &__bottom-address {
+        border: 2px solid red;
         display: flex;
-        justify-content: space-around;
-        width: 66%;
+        flex-direction: column;
+        align-items: flex-start;
 
+        @include mixins.tablet {
+            flex-direction: row;
+            justify-content: space-around;
+            width: 66%;
+        }
     }
 
     &__pickup {
@@ -124,69 +171,19 @@
     &__list-item {
         text-align: left;
         padding: 0.0625rem;
-        ;
     }
 
     &__trans-info {
+        border: 2px solid yellow;
         display: flex;
+        line-height: 2;
         flex-direction: column;
-        justify-content: space-around;
+        align-items: flex-start;
+        padding: 1rem;
+
+        @include mixins.tablet {
+            justify-content: space-around;
+        }
     }
 
-
-    .button-91 {
-        color: #fff;
-        padding: 15px 25px;
-        background-color: colors.$primary-green;
-        background-image: radial-gradient(93% 87% at 87% 89%, rgba(0, 0, 0, 0.23) 0%, transparent 86.18%), radial-gradient(66% 66% at 26% 20%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%);
-        box-shadow: inset -3px -3px 9px rgba(255, 255, 255, 0.25), inset 0px 3px 9px rgba(255, 255, 255, 0.3), inset 0px 1px 1px rgba(255, 255, 255, 0.6), inset 0px -8px 36px rgba(0, 0, 0, 0.3), inset 0px 1px 5px rgba(255, 255, 255, 0.6), 2px 19px 31px rgba(0, 0, 0, 0.2);
-        border-radius: 14px;
-        font-weight: bold;
-        font-size: 16px;
-
-        border: 0;
-
-        user-select: none;
-        -webkit-user-select: none;
-        touch-action: manipulation;
-
-        cursor: pointer;
-    }
-}
-
-
-
-
-
-
-
-/* CSS */
-.button-62 {
-  background: linear-gradient(to bottom right, colors.$secondary-blue, colors.$primary-green);
-  border: 0;
-  border-radius: 12px;
-  color: #FFFFFF;
-  cursor: pointer;
-  display: inline-block;
-
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 2.5;
-  outline: transparent;
-  padding: 0 1rem;
-  text-align: center;
-  text-decoration: none;
-  transition: box-shadow .2s ease-in-out;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  white-space: nowrap;
-}
-
-.button-62:not([disabled]):focus {
-  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(64, 231, 139, 0.5), .125rem .125rem 1rem rgba(60, 202, 245, 0.5);
-}
-
-.button-62:not([disabled]):hover {
-  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(31, 219, 188, 0.5), .125rem .125rem 1rem rgba(26, 203, 235, 0.5);
 }

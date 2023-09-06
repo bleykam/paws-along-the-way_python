@@ -64,7 +64,7 @@ export default function App() {
           <div className="page-container">
             <Routes>
               <Route path="/" element={<Home requestList={requestList} animalList={animalList} />} />
-              <Route path="/organization" element={<UserPage animalList={animalList} />} />
+              <Route path="/userpage" element={<UserPage animalList={animalList} />} />
               <Route path="/organization/:orgId" element={<OrganizationPage animalList={animalList} />} />
               <Route path="/animal/:animalId" element={<Animal animalList={animalList} reqList={requestList} />} />
               <Route path="/createrequest/:animalId" element={<CreateReq animalList={animalList} />} />
