@@ -6,7 +6,7 @@ import uuid
 class Organization(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100)
-    email = models.EmailField(max_length=254, blank=True, null=True)
+    email = models.EmailField(max_length=254, blank=True, null=True, unique=True)
     phone = models.CharField(max_length=20, blank=True, null=True)
     address = models.JSONField(blank=True, null=True)
     website = models.URLField(blank=True, null=True)
@@ -20,7 +20,7 @@ class Organization(models.Model):
 class User(AbstractUser):
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE, blank=True, null=True)
     isDriver = models.BooleanField(default=False)
-    
+    email = models.EmailField(unique=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
     

@@ -116,17 +116,13 @@ def googleLogin(request):
         return response
     
     except User.DoesNotExist:
-        username = idinfo['email'].split('@')[0]
-        first_name = idinfo.get('given_name', '')
-        last_name = idinfo.get('family_name', '')
-
+       
         user = User.objects.create(
-            username=username,
+            username=idinfo['email'].split('@')[0],
             email=idinfo['email'],
-            first_name=first_name,
-            last_name=last_name,
-            phone_no=None,
-            referral=None
+            first_name=idinfo['given_name'],
+            last_name=idinfo['family_name'],
+
         )
         
         access_token, refresh_token = generate_tokens_for_user(user)
