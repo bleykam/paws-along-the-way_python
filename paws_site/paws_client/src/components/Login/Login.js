@@ -45,7 +45,6 @@ export default function Login() {
 			.then((response) => {
 				const user_id = response.data.user_id;
 				const token = response.data.token;
-				console.log("TOKEN", token);
 
 				// Store token and user_id in localStorage
 				localStorage.setItem("token", token);

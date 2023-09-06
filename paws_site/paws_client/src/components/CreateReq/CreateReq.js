@@ -87,7 +87,7 @@ export default function CreateReq({animalList, }){
    
 
             <div className="animal-tile-outer" > 
-              <Link to={`/animal/${animal.id}`}><AnimalRequestCard animal={animal} />{animal.name}</Link> 
+              <Link to={`/animal/${animal.id}`}><AnimalRequestCard animal={animal} />{organization.name}</Link> 
             </div>
         </section>
          

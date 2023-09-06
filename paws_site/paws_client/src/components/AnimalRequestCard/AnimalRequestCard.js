@@ -5,10 +5,7 @@ import axios from "axios";
 
 export default function AnimalRequestCard({animal}) {
   const [animalPic, setAnimalPic]=useState("");
-  
-    // const userJSON = localStorage.getItem('user');
-    // const user = JSON.parse(userJSON);
-   
+
     useEffect(() => {
     axios.get(`https://dog.ceo/api/breeds/image/random`)
     .then(response=>setAnimalPic(response.data.message))

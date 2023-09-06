@@ -23,7 +23,7 @@ export default function Logout() {
 
   return (
     <main>
-      <button className="submit-button" onClick={handleLogout}>Logout</button>
+      <button className="logout-button" onClick={handleLogout}>Logout</button>
     </main>
   )
 }

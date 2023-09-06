@@ -5,9 +5,7 @@ import { useGetEffect } from "../../utils";
 
 export default function AddAnimal() {
    const [orgList, setOrgList] =useState("");
-    useGetEffect('/api/organizations/', setOrgList);
-    console.log(orgList)
-
+   useGetEffect(`api/organizations/`, setOrgList);
 
     const [values, setValues] = useState({
         description: "", dogs: "", cats: "", children: "", name: "", spayed_neutered: "", house_trained: "", declawed: "",
