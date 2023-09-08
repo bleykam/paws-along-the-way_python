@@ -15,10 +15,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from paws_server import views
-from paws_server.views import AnimalViewSet, OrganizationViewSet, TranportRequestViewSet, UserViewSet, indexView, login_view, logout_view, googleLogin
+from paws_server.views import AnimalViewSet, OrganizationViewSet, TranportRequestViewSet, UserViewSet, indexView, login_view, logout_view, googleLogin, AnimalOrgList
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from rest_framework import routers
+
 
 router = routers.DefaultRouter()
 router.register(r'users',UserViewSet,basename="user")
@@ -26,14 +27,18 @@ router.register(r'animals', AnimalViewSet,  basename='animal')
 router.register(r'organizations', OrganizationViewSet)
 router.register(r'tranportrequest', TranportRequestViewSet)
 
+
 urlpatterns = [
-    path('api/', include(router.urls)),
+    path('api/org-animals/', AnimalOrgList.as_view(), name='org-animals'),
+    path('admin/', admin.site.urls),
     path("api-auth/", include("rest_framework.urls")),
     path('googleLogin/', googleLogin, name='google-login'),
-    path('admin/', admin.site.urls),
-    path('', indexView, name='index'),
     path('login/', login_view, name="login"),
     path('logout/', logout_view, name='logout' ),
+    path('api/', include(router.urls)),
+    path('', indexView, name='index'),
+    # re_path('^animals/(?P<username>.+)/$', PurchaseList.as_view()),
+    
 ]
 
 

@@ -1,16 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.3be88da2.css",
-    "main.js": "/static/js/main.7d88bf20.js",
-    "static/media/BricolageGrotesque-VariableFont_opsz,wdth,wght.ttf": "/static/media/BricolageGrotesque-VariableFont_opsz,wdth,wght.a9842791f821464a2354.ttf",
+    "main.css": "/static/css/main.38c09321.css",
+    "main.js": "/static/js/main.3f9a3226.js",
     "static/media/paw-trail.svg": "/static/media/paw-trail.126d6b213a87efa57ca6.svg",
     "static/media/profile-circle-svgrepo-com.svg": "/static/media/profile-circle-svgrepo-com.34cb2d1d25bbb5d807c153236e00df86.svg",
     "index.html": "/index.html",
-    "main.3be88da2.css.map": "/static/css/main.3be88da2.css.map",
-    "main.7d88bf20.js.map": "/static/js/main.7d88bf20.js.map"
+    "main.38c09321.css.map": "/static/css/main.38c09321.css.map",
+    "main.3f9a3226.js.map": "/static/js/main.3f9a3226.js.map"
   },
   "entrypoints": [
-    "static/css/main.3be88da2.css",
-    "static/js/main.7d88bf20.js"
+    "static/css/main.38c09321.css",
+    "static/js/main.3f9a3226.js"
   ]
 }

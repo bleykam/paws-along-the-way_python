@@ -5,10 +5,10 @@ import { useParams, Link } from 'react-router-dom';
 import "react-datetime/css/react-datetime.css";
 import Datetime from 'react-datetime';
 import axios from "axios";
-import {loader, formatAddress, useGetEffect} from "../../utils"
+import {loader, formatAddress, useGetEffect, base_url} from "../../utils"
 
 
-export default function CreateReq({animalList, }){
+export default function CreateReq({animalList}){
     const [organization, setOrganization] = useState("");
     const [values, setValues] = useState({  time: "", user: "" });
     const timeChoices = ["", "Morning", "Afternoon", "Evening", "Flexible"];
@@ -17,7 +17,7 @@ export default function CreateReq({animalList, }){
     const destinationRef = useRef("");
     const [place, setPlace]=useState("");
     const [place1, setPlace1]=useState("");
-
+ 
     const handleDateChange = (date) => {
         // Update the date in state
         setValues({ ...values, date: date });
@@ -70,7 +70,7 @@ export default function CreateReq({animalList, }){
             "animal": animal.id
         }
 
-        axios.post(`http://127.0.0.1:8000/api/tranportrequest/`, newRequest)
+        axios.post(`${base_url}/api/tranportrequest/`, newRequest)
         .then(() => {
             console.log('success');
         })
@@ -114,7 +114,7 @@ export default function CreateReq({animalList, }){
               </select>
               </div>
             <div>
-                <button className='submit-button' onClick={handleSubmit}>Submit</button>
+                <button className='create-request__button' onClick={handleSubmit}>Submit</button>
             </div>
         
         </main>     

@@ -1,7 +1,7 @@
 import "./AddAnimal.scss"
 import React, { useState} from 'react';
 import axios from 'axios';
-import { useGetEffect } from "../../utils";
+import { useGetEffect, base_url } from "../../utils";
 
 export default function AddAnimal() {
    const [orgList, setOrgList] =useState("");
@@ -43,7 +43,7 @@ export default function AddAnimal() {
             "organization": values.organization
         }
 
-        axios.post(`/api/animals/`, newAnimal)
+        axios.post(`${base_url}/api/animals/`, newAnimal)
             .then(() => {
                 event.target.reset();
             })
@@ -205,8 +205,8 @@ export default function AddAnimal() {
                 </div>
             </div>
 
-            <div className="add-animal__button">
-                <button className='submit-button' onClick={handleSubmit}>SUBMIT</button>
+            <div className="add-animal__buttondiv">
+                <button className='add-animal__button' onClick={handleSubmit}>SUBMIT</button>
             </div>
 
         </main>

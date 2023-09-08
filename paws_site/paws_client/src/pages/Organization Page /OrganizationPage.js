@@ -5,26 +5,18 @@ import AnimalRequestCard from "../../components/AnimalRequestCard/AnimalRequestC
 import { useGetEffect } from "../../utils";
 
 
-export default function OrganizationPage({ animalList }) {
-  console.log(animalList)
+export default function OrganizationPage() {
   const id = useParams();
   const orgId = id['orgId']
-  console.log(orgId)
   const [organization, setOrganization] = useState("");
-  console.log(organization)
-
+  const [animals, setAnimals] = useState("");
  
-  useGetEffect(`api/organizations/${orgId}`, setOrganization);
+  useGetEffect(`/api/organizations/${orgId}/`, setOrganization);
+  useGetEffect(`http://localhost:8000/api/org-animals/?orgId=${orgId}`, setAnimals);
 
-  
   if(!organization){
     return <p>Page coming soon</p>
   }
-
-
-
-  const animals = animalList.filter((animal) => animal.organization === organization.id);
-
 
   return (
     <main className="organization-page">

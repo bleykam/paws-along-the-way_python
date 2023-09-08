@@ -4,7 +4,7 @@ import axios from "axios";
 import Logout from "../Logout/Logout.js";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
-import { csrf_token } from "../../utils";
+import { csrf_token, base_url } from "../../utils";
 
 export default function Login() {
 	const userJSON = localStorage.getItem("user");
@@ -18,7 +18,7 @@ export default function Login() {
 	const handleGoogleLoginSuccess = (credentialResponse) => {
 		const postData = { credential: credentialResponse.credential };
 		return axios
-			.post("http://localhost:8000/googleLogin/", postData)
+			.post(`${base_url}/googleLogin/`, postData)
 			.then((response) => {
 				const userJSON = JSON.stringify(response.data.user);
 				localStorage.setItem("user", userJSON);
@@ -38,14 +38,14 @@ export default function Login() {
 		e.preventDefault();
 
 		axios
-			.post(`http://127.0.0.1:8000/login/`, {
+			.post(`${base_url}/login/`, {
 				username: e.target.username.value,
 				password: e.target.password.value,
 			})
 			.then((response) => {
 				const user_id = response.data.user_id;
 				const token = response.data.token;
-
+	
 				// Store token and user_id in localStorage
 				localStorage.setItem("token", token);
 				localStorage.setItem("user_id", user_id);
@@ -55,7 +55,7 @@ export default function Login() {
 
 				// Fetch user data using the user_id
 				return axios
-					.get(`http://127.0.0.1:8000/api/users/${user_id}`)
+					.get(`${base_url}/api/users/${user_id}`)
 					.then((res) => {
 						const userJSON = JSON.stringify(res.data);
 						// Store user object in localStorage

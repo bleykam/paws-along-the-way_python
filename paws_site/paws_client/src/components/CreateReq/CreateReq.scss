@@ -29,8 +29,13 @@
   &__input {
     width: 100%;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    border: 2px solid colors.$primary-border;
-    border-radius: .25rem;
-    padding: 0.25rem;
+    border: 0.125rem solid colors.$primary-border;
+    border-radius: .35rem;
+    padding: 0.5rem;
+  }
+
+  &__button{
+    margin-top: 1rem;
+    @include mixins.request-button;
   }
 }

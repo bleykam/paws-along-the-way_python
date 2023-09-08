@@ -1,30 +1,38 @@
 import json
 import requests
+import jwt
 from google.oauth2 import id_token
 from google.auth.transport import requests
-import jwt
 
 from .models import Animal, User, Organization, TransportRequest
 from .serializers import UserSerializer, OrganizationSerializer, AnimalSerializer,TransportRequestSerializer
-from django.shortcuts import render
+
+from django.shortcuts import render, resolve_url
 
 from django.conf import settings
 from django.contrib.auth import logout, login, authenticate
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.views.generic.edit import FormView
+from django.contrib.auth import views as auth_views
 
+from django.contrib.auth import login as auth_login
+from django.contrib.sites.shortcuts import get_current_site
+import django_filters
+from django_filters.rest_framework import DjangoFilterBackend
+
+from rest_framework import generics
 from rest_framework import viewsets
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework.response import Response
 from rest_framework.views import APIView
 from .mixins import PublicApiMixin, ApiErrorsMixin
 from .utils import generate_tokens_for_user
-
-from urllib.parse import urlencode
+from django.contrib.auth.views import RedirectURLMixin
 
 
 def indexView(request, *args, **kwargs):
@@ -38,9 +46,10 @@ def login_view(request):
         password = data.get('password')
 
         user = authenticate(request, username=username, password=password)
+        token, created = Token.objects.get_or_create(user=user)
         if user is not None:
             login(request, user)
-            return JsonResponse({'status': 'success', 'user_id': user.id, 'token': 'your_generated_token'})
+            return JsonResponse({'status': 'success', 'user_id': user.id, 'token': token.key})
         else:
             return JsonResponse({'status': 'error', 'message': 'Invalid credentials'})
 
@@ -83,14 +92,11 @@ class TranportRequestViewSet(viewsets.ModelViewSet, APIView):
 @csrf_exempt
 def googleLogin(request):
     try:
-        
         if request.method == 'POST':
             data = json.loads(request.body)
-            print("DATA", data)
             credential = data.get('credential')
             client_id = data.get('clientId')
             idinfo = id_token.verify_oauth2_token(credential, requests.Request(), client_id)
-            print("IDINFO",idinfo)
             userid = idinfo['sub']
 
     except jwt.ExpiredSignatureError:
@@ -135,8 +141,24 @@ def googleLogin(request):
         return JsonResponse(response_data)
 
 
-     
+class AnimalOrgList(generics.ListAPIView):
+    serializer_class = AnimalSerializer
+    permission_classes = [AllowAny]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['organization']
+    
+    
 
-
-
-
+    def get_queryset(self):
+ 
+        """
+        Optionally restricts the returned animals to a given organization,
+        by filtering against a `organization_id` query parameter in the URL.
+        """
+        queryset = Animal.objects.all()
+        org_id = self.request.query_params.get('orgId')
+        if org_id is not None:
+            queryset = queryset.filter(organization=org_id)
+        return queryset
+    
+   

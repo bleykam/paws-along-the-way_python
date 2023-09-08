@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 import os
 from decouple import config
@@ -62,6 +63,7 @@ CORS_ORIGIN_WHITELIST = [
 CSRF_HEADER_NAME = 'X-CSRFToken'
 
 DEFAULT_APPS = [
+    'django_filters',
     'oauth2_provider',
     'rest_framework_simplejwt',
     'corsheaders',
@@ -179,13 +181,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework_simplejwt.authentication.JWTStatelessUserAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.AllowAny',
         'rest_framework.permissions.IsAuthenticated',
-    )
+    ),
+       'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'paws_client', 'build', 'static')]
@@ -212,5 +213,4 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.RemoteUserBackend",
     'django.contrib.auth.backends.ModelBackend'
 ]
-
 

@@ -2,6 +2,7 @@ import "./Logout.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { googleLogout } from '@react-oauth/google';
+import { base_url } from "../../utils";
 
 export default function Logout() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export default function Logout() {
     localStorage.clear();
     navigate("/login");
 
-    axios.get('/logout/')
+    axios.get(`${base_url}/logout/`)
       .then(response => {
         navigate("/login");
       })

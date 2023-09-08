@@ -2,20 +2,22 @@ import "./UserPage.scss";
 import { Link, useNavigate } from "react-router-dom";
 import React, {useState} from "react";
 import AnimalRequestCard from "../../components/AnimalRequestCard/AnimalRequestCard";
-import { useGetEffect } from "../../utils";
+import { useGetEffect, base_url } from "../../utils";
 
 
-export default function UserPage({ animalList }) {
+export default function UserPage() {
   const navigate = useNavigate();
   const userJSON = localStorage.getItem('user');
   const user = JSON.parse(userJSON);
   const [organization, setOrganization] = useState("");
+  const [animals, setAnimals] = useState("");
 
   if(!user){
     navigate("/login");
   };
 
-  useGetEffect(`api/organizations/${user.organization}`, setOrganization);
+  useGetEffect(`${base_url}api/organizations/${user.organization}`, setOrganization);
+  useGetEffect(`${base_url}/api/org-animals/?orgId=${organization.id}`, setAnimals);
 
   
   if(!organization){
@@ -24,7 +26,7 @@ export default function UserPage({ animalList }) {
 
 
 
-  const animals = animalList.filter((animal) => animal.organization === organization.id);
+
 
 
   return (

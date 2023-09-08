@@ -77,7 +77,7 @@ export const useAutocomplete = () => {
 
 export function useGetEffect(endpoint, handleResponse, condition="",){
   useEffect(() => {
-    axios.get(`/${endpoint}/`)
+    axios.get(`${endpoint}`)
     .then((response)=>{
       handleResponse(response.data);
     })

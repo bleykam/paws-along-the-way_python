@@ -3,5 +3,6 @@
 
 
 .logout-button{
+    margin-top: 0.5rem;
     @include mixins.request-button;
 }

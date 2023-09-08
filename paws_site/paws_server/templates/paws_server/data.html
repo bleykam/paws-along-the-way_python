@@ -1,9 +1,0 @@
-{% extends "paws_server/index.html" %}
-{% block content %}
-  <div id="root"></div>
-  <!-- making the department_choices variable avialable in the DOM -->
-  {{ time_choices|json_script:'time-choices' }}
-  {{ department_choices|json_script:'department-choices' }}
-  {{ department_choices|json_script:'department-choices' }}
-  <script src="{% static 'js-bundle.js' %}"></script>
-{% endblock content %}

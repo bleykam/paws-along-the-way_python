@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import { useGetEffect, base_url } from "./utils";
 import axios from "axios";
 import "./App.scss";
 import NavBar from "./components/NavBar/NavBar";
@@ -12,50 +13,21 @@ import Logout from "./components/Logout/Logout.js";
 import AddAnimal from "./components/AddAnimal/AddAnimal";
 import UserPage from "./pages/UserPage/UserPage";
 
-
-
 export default function App() {
-
   const [requestList, setRequestList] = useState(null);
   const [animalList, setAnimalList] = useState(null);
 
-
-  useEffect(() => {
-    // An array of URLs for the Axios requests
-    const urls = [
-      'http://127.0.0.1:8000/api/animals/',
-      'http://127.0.0.1:8000/api/tranportrequest/'
-    ];
-
-
-    // Function to make an Axios request and return a promise
-    function fetchData(url) {
-      return axios.get(url);
-    }
-
-    // Array to store all the promises
-    const promises = urls.map(url => fetchData(url));
-
-    // Execute all requests concurrently and wait for all promises to resolve
-    Promise.all(promises)
-      .then(responses => {
-        setAnimalList(responses[0].data);
-        setRequestList(responses[1].data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-  }, []);
-
+  useGetEffect(`${base_url}/api/animals/`, setAnimalList);
+  useGetEffect(`${base_url}/api/tranportrequest/`, setRequestList);
 
     if (!animalList) {
       return (
         <main className="profile">
           <p>Loading...</p>
         </main>
-      );
+      );  
     }
+    
   return (
     <div className="App">
       <BrowserRouter>
@@ -65,7 +37,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Home requestList={requestList} animalList={animalList} />} />
               <Route path="/userpage" element={<UserPage animalList={animalList} />} />
-              <Route path="/organization/:orgId" element={<OrganizationPage animalList={animalList} />} />
+              <Route path="/organization/:orgId" element={<OrganizationPage />} />
               <Route path="/animal/:animalId" element={<Animal animalList={animalList} reqList={requestList} />} />
               <Route path="/createrequest/:animalId" element={<CreateReq animalList={animalList} />} />
               <Route path="/login" element={<Login />} />
