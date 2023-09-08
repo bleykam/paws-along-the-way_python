@@ -147,8 +147,6 @@ class AnimalOrgList(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['organization']
     
-    
-
     def get_queryset(self):
  
         """

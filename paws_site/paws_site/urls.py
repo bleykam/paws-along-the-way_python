@@ -36,8 +36,7 @@ urlpatterns = [
     path('login/', login_view, name="login"),
     path('logout/', logout_view, name='logout' ),
     path('api/', include(router.urls)),
-    path('', indexView, name='index'),
-    # re_path('^animals/(?P<username>.+)/$', PurchaseList.as_view()),
+    path('', indexView, name='index'), 
     
 ]
 
