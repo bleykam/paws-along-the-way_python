@@ -56,8 +56,8 @@
 
   background: linear-gradient(to bottom right, $secondary-blue, $primary-green);
   border: 0;
-  border-radius: 12px;
-  color: #FFFFFF;
+  border-radius: 0.75rem;
+  color: $primary-white;
   cursor: pointer;
   display: inline-block;
   outline: transparent;
@@ -68,7 +68,7 @@
   -webkit-user-select: none;
   touch-action: manipulation;
   white-space: nowrap;
-  font-size: 1rem;
+  font-size: 0.75rem;
   font-weight: 500;
   line-height: 2.5;
   padding: 0 1rem;
@@ -80,5 +80,13 @@
 
   &:not([disabled]):hover {
     box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(31, 219, 188, 0.5), .125rem .125rem 1rem rgba(26, 203, 235, 0.5);
+  }
+  @include tablet{
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 2.5;
+    padding: 0 1rem;
+
+
   }
 }

@@ -1,9 +1,7 @@
+import "./App.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { useGetEffect, base_url } from "./utils";
-import axios from "axios";
-import "./App.scss";
-import NavBar from "./components/NavBar/NavBar";
 import Home from "./pages/Home/Home.js";
 import OrganizationPage from "./pages/Organization Page /OrganizationPage.js";
 import Animal from "./pages/Animal/Animal";
@@ -12,15 +10,31 @@ import Login from "./components/Login/Login.js";
 import Logout from "./components/Logout/Logout.js";
 import AddAnimal from "./components/AddAnimal/AddAnimal";
 import UserPage from "./pages/UserPage/UserPage";
+import Messaging from "./components/Messaging/Messaging";
+import NavBar from "./components/NavBar/NavBar";
 
 export default function App() {
+  const userJSON = localStorage.getItem('user');
+  const user = JSON.parse(userJSON);
   const [requestList, setRequestList] = useState(null);
   const [animalList, setAnimalList] = useState(null);
+  const [isLoggedIn, setLoggedIn] = useState(false);
+
+  useEffect(()=>{
+    if(user){
+      setLoggedIn(true)
+    }
+  },[window.location.pathname])
+
+  const handleLogout = () => {
+    setLoggedIn(prevLoggedIn => !prevLoggedIn);
+  };
+
 
   useGetEffect(`${base_url}/api/animals/`, setAnimalList);
   useGetEffect(`${base_url}/api/tranportrequest/`, setRequestList);
 
-    if (!animalList) {
+    if (!animalList || !requestList) {
       return (
         <main className="profile">
           <p>Loading...</p>
@@ -31,7 +45,7 @@ export default function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <NavBar />
+        <NavBar loggedIn={isLoggedIn}/>
         <div className="App__body">
           <div className="page-container">
             <Routes>
@@ -43,6 +57,7 @@ export default function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/logout" element={<Logout />} />
               <Route path="/addanimal" element={<AddAnimal  />} />
+              <Route path="/userpage/messages" element={<Messaging />} />
             </Routes>
           </div>
         </div>

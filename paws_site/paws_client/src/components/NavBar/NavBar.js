@@ -1,37 +1,42 @@
-import "./NavBar.scss";
-import { NavLink } from "react-router-dom";
+import './NavBar.scss';
+import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom'; 
+import Logout from '../Logout/Logout'
 import head from "../../assets/profile-circle-svgrepo-com.svg";
-import React from 'react';
-import Logout from "../Logout/Logout.js"
 
-export default function NavBar() {
-  const user = localStorage.getItem("user");
+
+const NavBar = ({isLoggedIn}) => {
+
+ 
+  console.log(isLoggedIn)
+
+
+  const handleLogout = () => {
+    // setLoggedIn(prevLoggedIn => !prevLoggedIn);
+  };
 
   return (
-    <header className="header">
-      <div className="header__home">
-        <NavLink className="header__homelink" to="/">
-          Paws Along The Way
-        </NavLink>
-      </div>
-      <div className="header__right">
-        <div className="header__account">
-          <div className="header__profile">
-            {" "}
-            <NavLink to="/userpage">
-              <img className="header__icon" src={head} alt="profile icon"></img>
-            </NavLink>
-            </div>
-        {user?
-        (<NavLink to="/logout" className="header-profile">
-              <Logout />
-          </NavLink>)
-         :( <NavLink to="/login" className="header-profile">
-              <button className="submit-button">Login</button>
-          </NavLink>)
-        }
+    <div className="navbar">
+      <div className="navbar__left-section">
+        <div className="navbar__title-div">
+          <NavLink to="/" className="navbar__title-link"><h1 className="navbar__title">Paws Along The Way</h1></NavLink>
         </div>
       </div>
-    </header>
+      <div className="navbar__right-section">
+        <div className="navbar__profile-link">
+          <NavLink to="/userpage" >
+            <img className="navbar__profile-icon" src={head} alt="profile icon"></img>
+          </NavLink>
+        </div>
+        {isLoggedIn ? (
+          <Logout onClick={handleLogout} />
+        ) : (
+          <NavLink to="/login" ><button className="navbar__button">Login</button></NavLink>
+        )}
+      </div>
+    </div>
   );
 }
+
+export default NavBar;
+

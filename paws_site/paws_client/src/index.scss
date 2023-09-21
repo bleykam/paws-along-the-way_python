@@ -1,7 +1,6 @@
-@use './styles/partials/colors';
-@use './styles/partials/mixins';
-@use './styles/partials/checkbox';
-
+@use "./styles/partials/mixins";
+@use "./styles/partials/colors";
+@use './styles/partials/fonts';
 
 *,
 *::before,
@@ -9,7 +8,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Avenir Next LT';
+    font-family: 'Podkova';
 }
 
 

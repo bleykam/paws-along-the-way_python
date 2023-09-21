@@ -1,0 +1,13 @@
+@use "../../styles/partials/colors";
+@use "../../styles/partials/mixins";
+
+.messaging{
+    margin: 0 auto;
+    @include mixins.tablet{
+        
+    }
+
+    &__button{
+        @include mixins.request-button;
+    }
+}

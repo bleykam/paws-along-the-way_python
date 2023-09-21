@@ -36,6 +36,10 @@ export default function Login() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		if (!e.target.username.value || !e.target.password.value) {
+			alert('Username and password fields cannot be blank');
+			return;
+		  }
 
 		axios
 			.post(`${base_url}/login/`, {

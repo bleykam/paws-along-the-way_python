@@ -18,7 +18,7 @@ from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-print("BASE", BASE_DIR)
+
 
 BASE_FRONTEND_URL = os.environ.get('DJANGO_BASE_FRONTEND_URL', default='http://localhost:3000')
 BACKEND_URL='http://localhost:8000'
@@ -63,6 +63,8 @@ CORS_ORIGIN_WHITELIST = [
 CSRF_HEADER_NAME = 'X-CSRFToken'
 
 DEFAULT_APPS = [
+    'daphne',
+    'selenium',
     'django_filters',
     'oauth2_provider',
     'rest_framework_simplejwt',
@@ -76,12 +78,13 @@ DEFAULT_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-
 CUSTOM_APPS=[
-    'paws_server'   
+    'paws_server',
+    'chatapp'   
 ]
 
-INSTALLED_APPS =  DEFAULT_APPS + CUSTOM_APPS
+
+INSTALLED_APPS =  DEFAULT_APPS + CUSTOM_APPS 
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -116,6 +119,7 @@ TEMPLATES = [
 
 
 WSGI_APPLICATION = 'paws_site.wsgi.application'
+ASGI_APPLICATION = 'paws_site.asgi.application'
 
 
 # Database
@@ -189,11 +193,10 @@ REST_FRAMEWORK = {
        'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'paws_client', 'build', 'static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'paws_client', 'build', 'static'), os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = 'static/'
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -201,16 +204,20 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# WEBPACK_LOADER = {
-#     'DEFAULT': {
-#         'BUNDLE_DIR_NAME': 'bundles/',  # Path to your webpack bundle files
-#         'STATS_FILE': os.path.join(BASE_DIR, 'paws_client', 'webpack-stats.json'),  # Path to your webpack stats file
-#     }
-# }
-
-
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.RemoteUserBackend",
-    'django.contrib.auth.backends.ModelBackend'
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("redis-server-name", 6379)],
+        },
+    },
+}
+
+
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'

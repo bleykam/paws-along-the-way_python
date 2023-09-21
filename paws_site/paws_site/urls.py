@@ -29,6 +29,7 @@ router.register(r'tranportrequest', TranportRequestViewSet)
 
 
 urlpatterns = [
+    path("chatapp/", include("chatapp.urls")),
     path('api/org-animals/', AnimalOrgList.as_view(), name='org-animals'),
     path('admin/', admin.site.urls),
     path("api-auth/", include("rest_framework.urls")),

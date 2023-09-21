@@ -1,37 +1,43 @@
 import "./UserPage.scss";
-import { Link, useNavigate } from "react-router-dom";
-import React, {useState} from "react";
+import { Link, useNavigate} from "react-router-dom";
+import React, {useState, useEffect} from "react";
 import AnimalRequestCard from "../../components/AnimalRequestCard/AnimalRequestCard";
-import { useGetEffect, base_url } from "../../utils";
-
 
 export default function UserPage() {
   const navigate = useNavigate();
   const userJSON = localStorage.getItem('user');
   const user = JSON.parse(userJSON);
+
   const [organization, setOrganization] = useState("");
   const [animals, setAnimals] = useState("");
-
-  if(!user){
-    navigate("/login");
-  };
-
-  useGetEffect(`${base_url}api/organizations/${user.organization}`, setOrganization);
-  useGetEffect(`${base_url}/api/org-animals/?orgId=${organization.id}`, setAnimals);
-
   
-  if(!organization){
-    return <p>Page coming soon</p>
-  }
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!user || !user.organization) {
+        navigate("/login");
+        return;
+      }
 
+      try {
+        const organizationResponse = await fetch(`api/organizations/${user.organization}/`);
+        const organizationData = await organizationResponse.json();
+        setOrganization(organizationData);
 
+        const animalsResponse = await fetch(`api/org-animals/?orgId=${user.organization}`);
+        const animalsData = await animalsResponse.json();
+        setAnimals(animalsData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
+    fetchData();
+  }, [user, navigate]);
 
-
-
+ 
   return (
     <main className="organization-page">
-      <h1 className="profile__heading">Welcome, {user.first_name} {user.last_name}!</h1>
+     <Link to='/userpage/messages'> <h1 className="profile__heading">Welcome, {user.first_name} {user.last_name}!</h1></Link>
       <div className="organization-page__info">
 
         <div className="organization-page__address">

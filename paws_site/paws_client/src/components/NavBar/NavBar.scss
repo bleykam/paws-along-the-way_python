@@ -1,9 +1,17 @@
 @use "../../styles/partials/colors";
 @use "../../styles/partials/mixins";
 
-.header {
+.navbar {
+	border: 2px solid hotpink;
 	position: relative;
-
+	padding: 1rem;
+	background-color: colors.$primary-blue;
+	color: colors.$primary-white;
+	border-bottom: 0.5rem solid colors.$primary-green;
+	display: flex;
+	justify-content: space-between;
+	height: 20vh;
+	
 	&::before {
 		content: "";
 		position: absolute;
@@ -18,28 +26,49 @@
 		z-index: 1;
 		opacity: 0.45;
 	}
-
-	width: 100%;
-	padding: 1rem;
-	display: flex;
-	justify-content: space-between;
-	
-	background-color: colors.$primary-blue;
-	color: colors.$primary-white;
-	border-bottom: 0.5rem solid colors.$primary-green;
-
 	@include mixins.tablet {
 		padding: 1rem 2.25rem;
-		flex-direction: row;
+		height: 20vh;
 	}
 
 	@include mixins.desktop {
 		padding: 1rem 5rem;
 	}
 
-
-	&__icon {
+	&__left-section {
+		width:85%;
 		z-index: 2;
+		display: flex;
+		align-items: center;
+	}
+
+	&__right-section {
+		z-index: 2;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		width:15%;
+	}
+
+	&__title-div {
+		z-index: 2;
+		font-size: 2rem;
+	}
+
+	&__title{
+		font-size: 1.5rem;
+		@include mixins.tablet{
+			font-size: 2.5rem;
+			line-height: 1.5;
+		}
+	}
+
+	&__title-link{
+		color: colors.$primary-white;
+		text-decoration: none;
+	}
+
+	&__profile-icon {
 		height: 3rem;
 		width: 3rem;
 
@@ -49,59 +78,11 @@
 		}
 	}
 
-	&__right {
-		display: flex;
-		justify-content: end;
-		padding-right:1rem;
-		@include mixins.tablet {
-			padding: 1rem;
-			width: 50%;
-			flex-direction: row;
-			justify-content: flex-end;
-			align-items: center;
+	&__button {
+		@include mixins.request-button;
+		padding: 0.25rem;
+		@include mixins.tablet{
+			padding: 0 0.5rem;
 		}
-	}
-
-
-	&__homelink {
-		z-index: 2;
-		width: 100%;
-		display: flex;
-		color: colors.$primary-white;
-		text-decoration: none;
-
-		@include mixins.tablet {
-			font-size: 2.5rem;
 		}
-	}
-
-	&__profile {
-		z-index: 2;
-		flex: 1 0 auto;
-	}
-
-	&__account {
-		z-index: 2;
-		width: 20%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-
-	&__home {
-		z-index: 2;
-		margin-bottom: 1rem;
-		display: flex;
-		font-size:1rem;
-		line-height: 1.5rem;
-		font-weight: 700;
-		justify-content: flex-start;
-			align-items: center;
-
-		@include mixins.tablet {
-			width: 100%;
-			justify-content: flex-start;
-			align-items: center;
-		}
-	}
 }
