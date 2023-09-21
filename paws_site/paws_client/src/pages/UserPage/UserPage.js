@@ -1,47 +1,33 @@
 import "./UserPage.scss";
-import { Link, useNavigate} from "react-router-dom";
-import React, {useState, useEffect} from "react";
+import {Link} from "react-router-dom";
+import React, {useState} from "react";
 import AnimalRequestCard from "../../components/AnimalRequestCard/AnimalRequestCard";
+import { useGetEffect} from "../../utils";
+import Login from "../../components/Login/Login";
 
 export default function UserPage() {
-  const navigate = useNavigate();
   const userJSON = localStorage.getItem('user');
   const user = JSON.parse(userJSON);
-
   const [organization, setOrganization] = useState("");
   const [animals, setAnimals] = useState("");
-  
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!user || !user.organization) {
-        navigate("/login");
-        return;
-      }
 
-      try {
-        const organizationResponse = await fetch(`api/organizations/${user.organization}/`);
-        const organizationData = await organizationResponse.json();
-        setOrganization(organizationData);
-
-        const animalsResponse = await fetch(`api/org-animals/?orgId=${user.organization}`);
-        const animalsData = await animalsResponse.json();
-        setAnimals(animalsData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, [user, navigate]);
-
+  useGetEffect(`api/organizations/${user?.organization}/`, setOrganization);
+  useGetEffect(`api/org-animals/?orgId=${user?.organization}`, setAnimals)
  
   return (
+    !user ? <Login />: (
     <main className="organization-page">
-     <Link to='/userpage/messages'> <h1 className="profile__heading">Welcome, {user.first_name} {user.last_name}!</h1></Link>
+        {user && (
+        <Link to='/userpage/messages'>
+          <h1 className="profile__heading">Welcome, {user.first_name} {user.last_name}!</h1>
+        </Link>
+      )}
+      {organization && (
+        <>
       <div className="organization-page__info">
-
+  
         <div className="organization-page__address">
-          <h2>{organization.name}</h2>
+          <h2>{organization.name }</h2>
 
           <p className="organization-page__contact-p">{organization.address.address1} </p>
           {organization.address.address2 && <p>{organization.address.address2}</p>}
@@ -79,7 +65,9 @@ export default function UserPage() {
             ))}
         </ul>
       </div>
-    </main>
+      </>
+   )}
+    </main>)
   );
 }
 
