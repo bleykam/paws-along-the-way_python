@@ -1,19 +1,25 @@
 import './NavBar.scss';
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom'; 
+import { NavLink, useNavigate } from 'react-router-dom'; 
 import Logout from '../Logout/Logout'
 import head from "../../assets/profile-circle-svgrepo-com.svg";
 
 
 const NavBar = ({isLoggedIn}) => {
-
  
-  console.log(isLoggedIn)
+  console.log("NAV USER", isLoggedIn)
+  console.log("IS LOGGED IN:", isLoggedIn)
 
+  // useEffect(()=>{
+  //   user ? setIsLoggedIn(true):setIsLoggedIn(false)
+  // },[user, isLoggedIn])
+  // console.log("IS LOGGED IN:", isLoggedIn)
+  // 
+    
+  // }
 
-  const handleLogout = () => {
-    // setLoggedIn(prevLoggedIn => !prevLoggedIn);
-  };
+  const handleLogout = () =>{
+  }
 
   return (
     <div className="navbar">
@@ -29,9 +35,9 @@ const NavBar = ({isLoggedIn}) => {
           </NavLink>
         </div>
         {isLoggedIn ? (
-          <Logout onClick={handleLogout} />
+          <Logout onclick={handleLogout} />
         ) : (
-          <NavLink to="/login" ><button className="navbar__button">Login</button></NavLink>
+          <NavLink to="/login" ><button className="navbar__button">Log In</button></NavLink>
         )}
       </div>
     </div>

@@ -36,43 +36,49 @@ export default function Login() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		
 		if (!e.target.username.value || !e.target.password.value) {
-			alert('Username and password fields cannot be blank');
-			return;
-		  }
-
+		  alert('Username and password fields cannot be blank');
+		  return;
+		}
+	  
 		axios
-			.post(`${base_url}/login/`, {
-				username: e.target.username.value,
-				password: e.target.password.value,
-			})
-			.then((response) => {
-				const user_id = response.data.user_id;
-				const token = response.data.token;
-	
-				// Store token and user_id in localStorage
-				localStorage.setItem("token", token);
-				localStorage.setItem("user_id", user_id);
-
-				// Set Authorization header for subsequent axios requests
-				axios.defaults.headers.common.Authorization = `Token ${token}`;
-
-				// Fetch user data using the user_id
-				return axios
-					.get(`${base_url}/api/users/${user_id}`)
-					.then((res) => {
-						const userJSON = JSON.stringify(res.data);
-						// Store user object in localStorage
-						localStorage.setItem("user", userJSON);
-
-						// Navigate to home page after successful login
-						navigate("/");
-					})
-					.catch((error) => {
-						console.log(error);
-					});
-			});
-	};
+		  .post(`${base_url}/login/`, {
+			username: e.target.username.value,
+			password: e.target.password.value,
+		  })
+		  .then((response) => {
+			const user_id = response.data.user_id;
+			const token = response.data.token;
+	  
+			// Store token and user_id in localStorage
+			localStorage.setItem("token", token);
+			localStorage.setItem("user_id", user_id);
+	  
+			// Set Authorization header for subsequent axios requests
+			axios.defaults.headers.common.Authorization = `Token ${token}`;
+	  
+			// Fetch user data using the user_id
+			return axios.get(`${base_url}/api/users/${user_id}`);
+		  })
+		  .then((res) => {
+			const userJSON = JSON.stringify(res.data);
+			// Store user object in localStorage
+			localStorage.setItem("user", userJSON);
+	  
+			// Navigate to home page after successful login
+			navigate("/");
+		  })
+		  .catch((error) => {
+			if (error.response && error.response.status === 500) {
+			  alert("Invalid username or password");
+			  console.error('Request failed with status code 500');
+			  navigate('/login');
+			} else {
+			  console.log("Login Failed:", error);
+			}
+		  });
+	  };
 
 	return (
 		<main>

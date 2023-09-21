@@ -1,6 +1,5 @@
 import "./Home.scss";
-
-import { loader, useAutocomplete, formatAddress } from '../../utils'
+import { loader} from '../../utils'
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 

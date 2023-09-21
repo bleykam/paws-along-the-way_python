@@ -18,18 +18,14 @@ export default function App() {
   const user = JSON.parse(userJSON);
   const [requestList, setRequestList] = useState(null);
   const [animalList, setAnimalList] = useState(null);
-  const [isLoggedIn, setLoggedIn] = useState(false);
-
+  const [isLoggedIn, setIsLoggedIn]=useState("");
   useEffect(()=>{
-    if(user){
-      setLoggedIn(true)
-    }
-  },[window.location.pathname])
+  if(user){
+    setIsLoggedIn(true);
+  }
+}, [user])
 
-  const handleLogout = () => {
-    setLoggedIn(prevLoggedIn => !prevLoggedIn);
-  };
-
+  console.log("IS LOGGED IN:", isLoggedIn)
 
   useGetEffect(`${base_url}/api/animals/`, setAnimalList);
   useGetEffect(`${base_url}/api/tranportrequest/`, setRequestList);
@@ -45,7 +41,7 @@ export default function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <NavBar loggedIn={isLoggedIn}/>
+        <NavBar isLoggedIn={isLoggedIn}/>
         <div className="App__body">
           <div className="page-container">
             <Routes>
