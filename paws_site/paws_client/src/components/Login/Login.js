@@ -73,7 +73,6 @@ export default function Login() {
 			if (error.response && error.response.status === 500) {
 			  alert("Invalid username or password");
 			  console.error('Request failed with status code 500');
-			  navigate('/login');
 			} else {
 			  console.log("Login Failed:", error);
 			}

@@ -15,9 +15,6 @@ const NavBar = () => {
     }
   }, [user])
 
-console.log("IS LOGGED IN:", isLoggedIn)
-
-
   return (
     <div className="navbar">
       <div className="navbar__left-section">
