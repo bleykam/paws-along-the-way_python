@@ -14,18 +14,8 @@ import Messaging from "./components/Messaging/Messaging";
 import NavBar from "./components/NavBar/NavBar";
 
 export default function App() {
-  const userJSON = localStorage.getItem('user');
-  const user = JSON.parse(userJSON);
   const [requestList, setRequestList] = useState(null);
   const [animalList, setAnimalList] = useState(null);
-  const [isLoggedIn, setIsLoggedIn]=useState("");
-  useEffect(()=>{
-  if(user){
-    setIsLoggedIn(true);
-  }
-}, [user])
-
-  console.log("IS LOGGED IN:", isLoggedIn)
 
   useGetEffect(`${base_url}/api/animals/`, setAnimalList);
   useGetEffect(`${base_url}/api/tranportrequest/`, setRequestList);
@@ -41,7 +31,7 @@ export default function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <NavBar isLoggedIn={isLoggedIn}/>
+        <NavBar />
         <div className="App__body">
           <div className="page-container">
             <Routes>
