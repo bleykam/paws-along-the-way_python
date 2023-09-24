@@ -9,11 +9,9 @@ export default function Logout() {
 
   const handleLogout = (e) => {
     googleLogout();
-    e.preventDefault();
     localStorage.clear();
-    navigate("/login");
-
-    axios.get(`${base_url}/logout/`)
+    
+    axios.post(`${base_url}/logout/`)
       .then(response => {
         navigate("/login");
       })

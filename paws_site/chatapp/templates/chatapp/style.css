@@ -1,0 +1,16 @@
+.messaging{
+    display: flex;
+    flex-direction: row;
+    margin: 1rem;
+
+}
+
+.titile{
+    color:hotpink;
+    text-align: center;
+
+}
+
+.input{
+
+}

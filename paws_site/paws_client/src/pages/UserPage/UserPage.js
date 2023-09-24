@@ -2,7 +2,7 @@ import "./UserPage.scss";
 import {Link} from "react-router-dom";
 import React, {useState} from "react";
 import AnimalRequestCard from "../../components/AnimalRequestCard/AnimalRequestCard";
-import { useGetEffect} from "../../utils";
+import { useGetEffect, base_url} from "../../utils";
 import Login from "../../components/Login/Login";
 
 export default function UserPage() {
@@ -11,8 +11,8 @@ export default function UserPage() {
   const [organization, setOrganization] = useState("");
   const [animals, setAnimals] = useState("");
 
-  useGetEffect(`api/organizations/${user?.organization}/`, setOrganization);
-  useGetEffect(`api/org-animals/?orgId=${user?.organization}`, setAnimals)
+  useGetEffect(`${base_url}/api/organizations/${user?.organization}/`, setOrganization);
+  useGetEffect(`${base_url}/api/org-animals/?orgId=${user?.organization}`, setAnimals)
  
   return (
     !user ? <Login />: (

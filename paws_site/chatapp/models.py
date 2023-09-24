@@ -1,3 +1,13 @@
 from django.db import models
+from paws_server.models import User
+from django.conf import settings
+import uuid
 
-# Create your models here.
+
+class ChatMessage(models.Model):
+    sender = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.sender.username} - {self.timestamp}'

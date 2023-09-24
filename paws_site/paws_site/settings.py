@@ -64,6 +64,7 @@ CSRF_HEADER_NAME = 'X-CSRFToken'
 
 DEFAULT_APPS = [
     'daphne',
+    'channels',
     'selenium',
     'django_filters',
     'oauth2_provider',
@@ -131,7 +132,10 @@ DATABASES = {
         "OPTIONS": {
             "read_default_file": os.path.join(BASE_DIR, 'my.cnf'),
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-        }
+        },
+        "TEST": {
+            "NAME": BASE_DIR / "test_db.sqlite3",
+        },
     },
 
 }
@@ -195,8 +199,9 @@ REST_FRAMEWORK = {
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'paws_client', 'build', 'static'), os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 STATIC_URL = 'static/'
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -205,7 +210,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTHENTICATION_BACKENDS = [
-    "django.contrib.auth.backends.RemoteUserBackend",
     'django.contrib.auth.backends.ModelBackend',
 ]
 
@@ -213,7 +217,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("redis-server-name", 6379)],
+            "hosts": [("127.0.0.1", 6379)],
         },
     },
 }

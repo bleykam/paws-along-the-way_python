@@ -19,6 +19,8 @@ from paws_server.views import AnimalViewSet, OrganizationViewSet, TranportReques
 from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework import routers
+from chatapp import routing
+from chatapp.views import ChatMessageViewSet
 
 
 router = routers.DefaultRouter()
@@ -26,9 +28,12 @@ router.register(r'users',UserViewSet,basename="user")
 router.register(r'animals', AnimalViewSet,  basename='animal')
 router.register(r'organizations', OrganizationViewSet)
 router.register(r'tranportrequest', TranportRequestViewSet)
+router.register(r'chatmessage', ChatMessageViewSet)
 
 
 urlpatterns = [
+
+    path('chatapp/', include(routing.websocket_urlpatterns)),
     path("chatapp/", include("chatapp.urls")),
     path('api/org-animals/', AnimalOrgList.as_view(), name='org-animals'),
     path('admin/', admin.site.urls),
