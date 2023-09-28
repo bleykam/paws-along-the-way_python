@@ -31,19 +31,19 @@ router.register(r'tranportrequest', TranportRequestViewSet)
 router.register(r'chatmessage', ChatMessageViewSet)
 
 
+
 urlpatterns = [
 
     path('chatapp/', include(routing.websocket_urlpatterns)),
-    path("chatapp/", include("chatapp.urls")),
-    path('api/org-animals/', AnimalOrgList.as_view(), name='org-animals'),
+    path('chatapp/', include("chatapp.urls")),
     path('admin/', admin.site.urls),
-    path("api-auth/", include("rest_framework.urls")),
+    path('api/', include(router.urls)),
+    path('api/org-animals/', AnimalOrgList.as_view(), name='org-animals'),
+    path('api-auth/', include("rest_framework.urls")),
     path('googleLogin/', googleLogin, name='google-login'),
     path('login/', login_view, name="login"),
     path('logout/', logout_view, name='logout' ),
-    path('api/', include(router.urls)),
-    path('', indexView, name='index'), 
-    
+    path('', indexView, name='index'),    
 ]
 
 

@@ -1,16 +1,27 @@
 @use "../../styles/partials/colors";
 @use "../../styles/partials/mixins";
 
-.organization-page {
+.user-page {
     background-color: colors.$primary-background;
-
-    &__heading {
-        margin: 0 0 1rem;
-        padding: 0 0 0.5rem;
+    &__header{
+        display: flex;
+        justify-content: space-evenly;
+        padding: 1rem;
+        align-items: center;
         border-bottom: 0.3125rem solid colors.$primary-border;
     }
 
     &__title {
+        color: colors.$secondary-slate;
+        margin: 0 0 1rem;
+        padding: 0 0 0.5rem;
+       
+    }
+    &__button{
+        @include mixins.request-button;
+    }
+
+    &__animal-title {
         font-size: 2rem;
         padding: 1rem;
         color: colors.$secondary-slate;
@@ -36,7 +47,7 @@
         }
     }
 
-    &__header-bar {
+    &__animal-bar {
         display: flex;
         flex-direction: column;
         width: 100%;

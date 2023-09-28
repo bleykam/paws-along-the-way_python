@@ -3,6 +3,8 @@ import { format } from "date-fns";
 import { useEffect, useRef, useState } from "react";
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import 'react-chat-elements/dist/main.css'
+import { ChatItem , MessageBox, ChatList, MessageList} from 'react-chat-elements'
 
 export const csrf_token = Cookies.get('csrftoken');
 
@@ -162,3 +164,40 @@ export function getCookie(name) {
 }
 
 
+export function ChatBox(text, isUser, sender) {
+
+  if (isUser) {
+    return (
+      <MessageList 
+    className='message-list'
+    lockable={true}
+    toBottomHeight={'100%'}
+    dataSource={[
+    {
+      position:"right",
+      type:"text",
+      title:sender,
+      text:text,
+    },
+      ]}
+      />
+  )} else {
+    return (
+      <MessageList
+      className='message-list'
+      lockable={true}
+      toBottomHeight={'100%'}
+      dataSource={[
+      {
+        position:"left",
+        type:"text",
+        title:sender,
+        text:text,
+      },
+      ]}
+      />
+    );
+  }
+
+
+};

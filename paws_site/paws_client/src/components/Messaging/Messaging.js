@@ -1,6 +1,9 @@
 import React, { useState, useRef} from 'react';
 import './Messaging.scss'
-import { handleKeyPress, useGetEffect} from '../../utils';
+import { handleKeyPress, useGetEffect, base_url, ChatBox} from '../../utils';
+import 'react-chat-elements/dist/main.css'
+import { ChatItem , MessageBox, ChatList, MessageList} from 'react-chat-elements'
+
 
 const API_PATH = 'ws://localhost:8000/ws/chatapp/';
 
@@ -10,35 +13,32 @@ export default function Messaging() {
   const userJSON = localStorage.getItem('user');
   const user = JSON.parse(userJSON);
   const userName = user.username
+  console.log(userName)
 
   const [messageHistory, setMessageHistory] = useState([]);
 
+  
   useGetEffect(`http://localhost:8000/api/chatmessage/`, setMessageHistory)
-  console.log(messageHistory)
 
-  console.log(chatSocket)
-  // chatSocket.onopen = function(e) {
- 
-  //   chatSocket.send("My name is John");
-  // };
-  chatSocket.onmessage = function(e) {
-    console.log("REACTONMSG", e)
-    const data = JSON.parse(e.data);
-    console.log("REACT EDATA", e.data)
-};
+  chatSocket.onopen = function(e) {
+    console.log("chaatscoket open")
+    // chatSocket.send("My name is John");
+  };
 
 const handleClick = (event) => {
-  console.log("handleEvent", event)
-
   const message = messageRef.current.value;
   const data = {
     'message': message,
-    'username': userName,
+    'sender': userName,
   };
+
 console.log('WebSocket message received:', event, userName, data);
-document.querySelector('#chat-log').value += (userName + ': '  + data.message + '\n');
+
+setMessageHistory([...messageHistory,data]);
 chatSocket.send(JSON.stringify(data))
+
 messageRef.current.value="";
+
 };
 
 
@@ -48,14 +48,13 @@ messageRef.current.value="";
     <main className="messaging" > 
 
     <h2 className="messaging__title">Messages</h2>
- 
-        <div className="comment-list">
-          {messageHistory.map((comment) => (
-            <li className="comment-list__item" key={comment.id}>{comment.message}</li>
-          ))}
+
+        <div className="messaging__log">
+          {messageHistory.map((message) => (
+            ChatBox(message.message, message.sender===userName, message.sender)
+              ))}
         </div>
-      
-      <textarea className="messaging__log" id="chat-log" rows="20"></textarea>
+
       <input className="messaging__input" ref={messageRef} id="chat-message-input" type="text" placeholder="Type message here" onKeyDown={handleKeyPress}/>
       <button id="chat-message-submit" className="messaging__button" onClick={handleClick} type="submit" >SEND</button>
     </main>

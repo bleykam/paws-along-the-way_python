@@ -16,43 +16,43 @@ export default function UserPage() {
  
   return (
     !user ? <Login />: (
-    <main className="organization-page">
+    <main className="user-page">
         {user && (
-        <Link to='/userpage/messages'>
-          <h1 className="profile__heading">Welcome, {user.first_name} {user.last_name}!</h1>
-        </Link>
+        <div className="user-page__header" > <h1 className="user-page__title">Welcome, {user.first_name} {user.last_name}!</h1>
+          <Link to='/userpage/messages'><button className="user-page__button">Contact {user.first_name}</button></Link></div> 
       )}
+     
       {organization && (
         <>
-      <div className="organization-page__info">
+      <div className="user-page__info">
   
-        <div className="organization-page__address">
+        <div className="user-page__address">
           <h2>{organization.name }</h2>
 
-          <p className="organization-page__contact-p">{organization.address.address1} </p>
+          <p className="user-page__contact-p">{organization.address.address1} </p>
           {organization.address.address2 && <p>{organization.address.address2}</p>}
-          <p className="organization-page__contact-p">
+          <p className="user-page__contact-p">
             <span>{organization.address.city} </span>
             <span>{organization.address.state}, </span>
             <span>{organization.address.postcode}</span>
           </p>
         </div>
 
-        <div className="organization-page__contact">
-          <p className="organization-page__contact-p">{organization.phone}</p>
-          <p className="organization-page__contact-p">{organization.email}</p>
-          <p className="organization-page__contact-p">{organization.website}</p>
+        <div className="user-page__contact">
+          <p className="user-page__contact-p">{organization.phone}</p>
+          <p className="user-page__contact-p">{organization.email}</p>
+          <p className="user-page__contact-p">{organization.website}</p>
         </div>
 
       </div>
 
-      <div className="organization-page__header-bar">
-        <h2 className="organization-page__title">Animals</h2>
-        <Link className="organization-page__add" to="/addanimal"><span>Add Animal</span></Link>
-        <input className="organization-page__search" type="search" placeholder="search animals..." ></input>
+      <div className="user-page__animal-bar">
+        <h2 className="user-page__animal-title">Animals</h2>
+        <Link className="user-page__add" to="/addanimal"><span>Add Animal</span></Link>
+        <input className="user-page__search" type="search" placeholder="search animals..." ></input>
       </div>
 
-      <div className="organization_page__animals">
+      <div className="user_page__animals">
         <ul className="animal-tiles-list">
           {animals &&
             animals.map((animal) => (

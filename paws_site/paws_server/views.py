@@ -15,7 +15,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
-from django.views.generic.edit import FormView
+
 from django.contrib.auth import views as auth_views
 
 from django.contrib.auth import login as auth_login
@@ -64,26 +64,26 @@ def logout_view(request):
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
-class AnimalViewSet(viewsets.ModelViewSet, APIView):
+class AnimalViewSet(viewsets.ModelViewSet):
     authentication_classes = [BasicAuthentication]
     permission_classes = [AllowAny]
    
     queryset = Animal.objects.all()
     serializer_class = AnimalSerializer
     
-class UserViewSet(viewsets.ModelViewSet, ApiErrorsMixin):
+class UserViewSet(viewsets.ModelViewSet):
     authentication_classes = [BasicAuthentication]
     permission_classes = [AllowAny]
     queryset = User.objects.all()
     serializer_class = UserSerializer
     
-class OrganizationViewSet(viewsets.ModelViewSet, APIView):
+class OrganizationViewSet(viewsets.ModelViewSet):
     authentication_classes = [BasicAuthentication]
     permission_classes = [AllowAny]
     queryset = Organization.objects.all()
     serializer_class = OrganizationSerializer
     
-class TranportRequestViewSet(viewsets.ModelViewSet, APIView):
+class TranportRequestViewSet(viewsets.ModelViewSet):
     queryset = TransportRequest.objects.all()
     serializer_class = TransportRequestSerializer
     authentication_classes = [BasicAuthentication]
@@ -151,7 +151,7 @@ class AnimalOrgList(generics.ListAPIView):
     def get_queryset(self):
  
         """
-        Optionally restricts the returned animals to a given organization,
+        restricts the returned animals to a given organization,
         by filtering against a `organization_id` query parameter in the URL.
         """
         queryset = Animal.objects.all()
@@ -160,4 +160,3 @@ class AnimalOrgList(generics.ListAPIView):
             queryset = queryset.filter(organization=org_id)
         return queryset
     
-   

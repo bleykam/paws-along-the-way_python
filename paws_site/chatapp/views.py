@@ -9,22 +9,20 @@ from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import AllowAny
 from .serializers import ChatMessageSerializer
 from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from django.views.generic.edit import View
+from django.http import  JsonResponse
+from paws_server.models import User
+from rest_framework.decorators import api_view
 
 
 
 
 def index(request):
-    messages = ChatMessage.objects.all()
-    # user = request.user
-    # login(request.scope, user, backend='django.contrib.auth.backends.ModelBackend')
-    channel_layer = get_channel_layer()
-    print("CL:", channel_layer)
     context = request.body
-    favorite_color = request.session.get('favorite_color', 'default_color')
     chat_name = request.session.get('chat_name')
-
-
-    return render(request, "chatapp/index.html", {'context':context, "fav":favorite_color, "chat_name":chat_name, "messages":messages })
+    return render(request, "chatapp/index.html", {'context':context, "chat_name":chat_name})
 
 def chat_box(request, chat_box_name):
     user = request.user
@@ -40,8 +38,9 @@ def chat(request, chat_name):
 
 
  
-class ChatMessageViewSet(viewsets.ModelViewSet, APIView):
+class ChatMessageViewSet(viewsets.ModelViewSet):
     queryset = ChatMessage.objects.all()
     serializer_class = ChatMessageSerializer
     authentication_classes = [BasicAuthentication]
     permission_classes = [AllowAny]
+

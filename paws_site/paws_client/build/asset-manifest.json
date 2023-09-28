@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.f2cf7756.css",
-    "main.js": "/static/js/main.21ad0ba7.js",
+    "main.css": "/static/css/main.e65851a2.css",
+    "main.js": "/static/js/main.e677580e.js",
     "static/media/Podkova-VariableFont_wght.ttf": "/static/media/Podkova-VariableFont_wght.26c1fdbfd44303ed9e79.ttf",
     "static/media/paw-trail.svg": "/static/media/paw-trail.126d6b213a87efa57ca6.svg",
     "static/media/profile-circle-svgrepo-com.svg": "/static/media/profile-circle-svgrepo-com.34cb2d1d25bbb5d807c153236e00df86.svg",
     "index.html": "/index.html",
-    "main.f2cf7756.css.map": "/static/css/main.f2cf7756.css.map",
-    "main.21ad0ba7.js.map": "/static/js/main.21ad0ba7.js.map"
+    "main.e65851a2.css.map": "/static/css/main.e65851a2.css.map",
+    "main.e677580e.js.map": "/static/js/main.e677580e.js.map"
   },
   "entrypoints": [
-    "static/css/main.f2cf7756.css",
-    "static/js/main.21ad0ba7.js"
+    "static/css/main.e65851a2.css",
+    "static/js/main.e677580e.js"
   ]
 }
