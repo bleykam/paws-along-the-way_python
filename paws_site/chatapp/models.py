@@ -1,7 +1,5 @@
 from django.db import models
 from paws_server.models import User
-from django.conf import settings
-import uuid
 
 
 class ChatMessage(models.Model):

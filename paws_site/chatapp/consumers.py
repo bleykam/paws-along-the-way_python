@@ -1,11 +1,9 @@
 import json
-from channels.generic.websocket import AsyncWebsocketConsumer, AsyncJsonWebsocketConsumer
+from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from channels.auth import login, get_user
 from channels.db import database_sync_to_async
 from chatapp.models import ChatMessage
-import uuid
-from django.contrib.sessions.backends.db import SessionStore
-from django.contrib.auth.models import AnonymousUser
+
 
 class ChatRoomConsumer(AsyncJsonWebsocketConsumer):
 
@@ -24,7 +22,6 @@ class ChatRoomConsumer(AsyncJsonWebsocketConsumer):
 
         await database_sync_to_async(self.scope["session"].save)()
     
-        print("CN", self.chat_name)
         self.room_group_name = "chat_%s" % self.chat_name
         # # Join room group
         await self.channel_layer.group_add(self.room_group_name, self.channel_name)
