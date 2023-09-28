@@ -13,24 +13,9 @@
     <textarea id="chat-log" cols="100" rows="20"  style="margin:1rem;"> </textarea><br>
     <input id="chat-message-input" type="text" size="100" style="margin:1rem;"><br>
     <input id="chat-message-submit" type="button" value="Send" style="margin:1rem;">
-    <h3>context: {{context.sender.last_name}}</h3>
-    
-    <h2>scope:{{request.scope}}</h2>
 
-    <ul>
-        {% for header, value in request.scope.headers %}
-        <li><strong>{{ header}}:</strong> {{ value }}</li>
-        {% endfor %}
-        </ul>
-   
-    <h3>user: {{request.user}}</h3>
-    <h3>username :{{request.user.username}}</h3>
-    {{ request.user.username|json_script:"username" }}
 </main>
     <script>
-        const username = JSON.parse(document.getElementById('username').textContent);
-        console.log("CONSOLENAME", username)
-
         const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/chatapp/');
         chatSocket.onopen = function(e) {
         alert("SOCKET OPEN", e)
@@ -42,33 +27,6 @@
            console.error('Chat socket closed unexpectedly');
          };
 
-        // chatSocket.onmessage = function(e) {
-        //     console.log("MSGEVENT", e)
-        //     const data = JSON.parse(e.data);
-        //     document.querySelector('#chat-log').value += (data.message + '\n');
-        // };
-
-        // chatSocket.onclose = function(e) {
-        //     alert("CLOSEEVENT", e)
-        //     console.error('Chat socket closed unexpectedly');
-        // };
-
-        // document.querySelector('#chat-message-input').focus();
-        // document.querySelector('#chat-message-input').onkeyup = function(e) {
-        //     if (e.keyCode === 13) {  // enter, return
-        //         document.querySelector('#chat-message-submit').click();
-        //     }
-        // };
-
-        // document.querySelector('#chat-message-submit').onclick = function(e) {
-        //     const messageInputDom = document.querySelector('#chat-message-input');
-        //     const message = messageInputDom.value;
-        //     console.log("message", message)
-        //     chatSocket.send(JSON.stringify({
-        //         'message': message
-        //     }));
-        //     messageInputDom.value = '';
-        // };
     </script>
        <!-- <script src="{% static 'index.js' %}"></script> -->
        <script src="{% static './js/bundle.js' %}"></script>
