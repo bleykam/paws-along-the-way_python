@@ -9,6 +9,7 @@ export default function OrganizationPage() {
   const id = useParams();
   const orgId = id['orgId']
   const [organization, setOrganization] = useState("");
+  console.log(organization)
   const [animals, setAnimals] = useState("");
  
   useGetEffect(`/api/organizations/${orgId}/`, setOrganization);

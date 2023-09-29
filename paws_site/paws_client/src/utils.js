@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import 'react-chat-elements/dist/main.css'
-import { ChatItem , MessageBox, ChatList, MessageList} from 'react-chat-elements'
+import { MessageList} from 'react-chat-elements'
 
 export const csrf_token = Cookies.get('csrftoken');
 

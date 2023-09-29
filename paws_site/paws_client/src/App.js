@@ -12,7 +12,8 @@ import AddAnimal from "./components/AddAnimal/AddAnimal";
 import UserPage from "./pages/UserPage/UserPage";
 import Messaging from "./components/Messaging/Messaging";
 import NavBar from "./components/NavBar/NavBar";
-
+import EditAnimal
+ from "./components/EditAnimal/EditAnimal";
 export default function App() {
   const [requestList, setRequestList] = useState(null);
   const [animalList, setAnimalList] = useState(null);
@@ -39,6 +40,7 @@ export default function App() {
               <Route path="/userpage" element={<UserPage animalList={animalList} />} />
               <Route path="/organization/:orgId" element={<OrganizationPage />} />
               <Route path="/animal/:animalId" element={<Animal animalList={animalList} reqList={requestList} />} />
+              <Route path="/animal/:animalId/edit" element={<EditAnimal  />} />
               <Route path="/createrequest/:animalId" element={<CreateReq animalList={animalList} />} />
               <Route path="/login" element={<Login />} />
               <Route path="/logout" element={<Logout />} />

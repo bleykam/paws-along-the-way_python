@@ -11,8 +11,7 @@ export default function Animal({ animalList, reqList }) {
 	const animal = animalList.filter((animal) => animal.id === animalId)[0];
 	const req = reqList.filter((req) => req.animal === animalId)[0];
 	const [animalPic, setAnimalPic] = useState("");
-
-
+	
 	useEffect(() => {
 		axios
 			.get(`https://dog.ceo/api/breeds/image/random`)
@@ -37,7 +36,7 @@ export default function Animal({ animalList, reqList }) {
 					/>
 				</div>
 				<div className="animal-page__content">
-					<h2 className="animal-page__name">{animal.name}</h2>
+					<Link to={`/animal/${animal.id}/edit`}><h2 className="animal-page__name">{animal.name}</h2></Link>
 					<Link to={`/organization/${animal.organization}`} className="animal-page__link"><span >Contact Info</span></Link>
 
 					<div>

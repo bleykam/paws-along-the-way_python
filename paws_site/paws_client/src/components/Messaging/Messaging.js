@@ -1,9 +1,7 @@
 import React, { useState, useRef} from 'react';
 import './Messaging.scss'
-import { handleKeyPress, useGetEffect, base_url, ChatBox} from '../../utils';
+import { handleKeyPress, useGetEffect, ChatBox} from '../../utils';
 import 'react-chat-elements/dist/main.css'
-import { ChatItem , MessageBox, ChatList, MessageList} from 'react-chat-elements'
-
 
 const API_PATH = 'ws://localhost:8000/ws/chatapp/';
 
@@ -17,7 +15,6 @@ export default function Messaging() {
 
   const [messageHistory, setMessageHistory] = useState([]);
 
-  
   useGetEffect(`http://localhost:8000/api/chatmessage/`, setMessageHistory)
 
   chatSocket.onopen = function(e) {
@@ -25,23 +22,21 @@ export default function Messaging() {
     // chatSocket.send("My name is John");
   };
 
-const handleClick = (event) => {
+  const handleClick = (event) => {
   const message = messageRef.current.value;
   const data = {
     'message': message,
     'sender': userName,
   };
 
-console.log('WebSocket message received:', event, userName, data);
+  console.log('WebSocket message received:', event, userName, data);
 
-setMessageHistory([...messageHistory,data]);
-chatSocket.send(JSON.stringify(data))
+  setMessageHistory([...messageHistory,data]);
+  chatSocket.send(JSON.stringify(data))
 
-messageRef.current.value="";
+  messageRef.current.value="";
 
-};
-
-
+  };
 
   return (
 
