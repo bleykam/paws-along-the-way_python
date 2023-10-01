@@ -67,7 +67,7 @@ def logout_view(request):
 class AnimalViewSet(viewsets.ModelViewSet):
     authentication_classes = [BasicAuthentication]
     permission_classes = [AllowAny]
-   
+    http_method_names = ['get', 'put', 'head', 'post', 'options']
     queryset = Animal.objects.all()
     serializer_class = AnimalSerializer
     

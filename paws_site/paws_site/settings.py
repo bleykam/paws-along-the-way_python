@@ -63,6 +63,8 @@ CORS_ORIGIN_WHITELIST = [
 CSRF_HEADER_NAME = 'X-CSRFToken'
 
 DEFAULT_APPS = [
+    'django_vite',
+    'django_vite_plugin',
     'daphne',
     'channels',
     'selenium',
@@ -105,7 +107,7 @@ ROOT_URLCONF = 'paws_site.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'paws_client', 'build')],
+        'DIRS': [os.path.join(BASE_DIR, 'paws_client', 'dist')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -176,10 +178,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
-
-STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'paws_client', 'dist'), os.path.join(BASE_DIR, 'paws_client', 'src')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -196,17 +196,6 @@ REST_FRAMEWORK = {
     ),
        'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
-
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'paws_client', 'build', 'static'), os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = 'static/'
-
-
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTHENTICATION_BACKENDS = [
@@ -225,3 +214,9 @@ CHANNEL_LAYERS = {
 
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+
+
+DJANGO_VITE_ASSETS_PATH = os.path.join(BASE_DIR, 'paws_client', 'dist')
+
+

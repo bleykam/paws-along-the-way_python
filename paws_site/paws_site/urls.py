@@ -39,11 +39,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api/org-animals/', AnimalOrgList.as_view(), name='org-animals'),
+  
     path('api-auth/', include("rest_framework.urls")),
     path('googleLogin/', googleLogin, name='google-login'),
     path('login/', login_view, name="login"),
     path('logout/', logout_view, name='logout' ),
     path('', indexView, name='index'),    
+    
 ]
 
 

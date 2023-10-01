@@ -93,3 +93,14 @@ class CreateUserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+
+class EditAnimalSerializer(serializers.ModelSerializer):
+    attributes = AttributesSerializer()
+    environment = EnvironmentSerializer()
+
+    class Meta:
+        model = Animal
+        fields = '__all__'
+    gender = serializers.ChoiceField(choices=Animal.GENDER_CHOICES)
+    size = serializers.ChoiceField(choices=Animal.SIZE_CHOICES) 

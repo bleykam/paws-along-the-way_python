@@ -30,7 +30,7 @@ class ChatRoomConsumer(AsyncJsonWebsocketConsumer):
    
     async def disconnect(self, close_code): 
         # Leave room group
-        await(logout(scope))
+        
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
 
     # Receive message from WebSocket
