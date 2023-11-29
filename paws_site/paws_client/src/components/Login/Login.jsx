@@ -21,7 +21,6 @@ export default function Login() {
 		return axios
 			.post(`${base_url}/googleLogin/`, postData)
 			.then((response) => {
-				console.log("RD", response);
 				const userJSON = JSON.stringify(response.data.user);
 				localStorage.setItem("user", userJSON);
 				navigate("/");
@@ -69,11 +68,9 @@ export default function Login() {
 				},
 			)
 			.then((response) => {
-				console.log(response.data);
 				const user_id = response.data.user_id;
 				const token = response.data.token;
 				const session = Cookies.get('sessionid');
-				console.log(session)
 
 				// Store token and user_id in localStorage
 				localStorage.setItem("token", token);
@@ -89,7 +86,6 @@ export default function Login() {
 				return axios.get(`${base_url}/api/users/${user_id}`);
 			})
 			.then((res) => {
-				console.log("RES", res)
 				const userJSON = JSON.stringify(res.data);
 				// Store user object in localStorage
 				localStorage.setItem("user", userJSON);
