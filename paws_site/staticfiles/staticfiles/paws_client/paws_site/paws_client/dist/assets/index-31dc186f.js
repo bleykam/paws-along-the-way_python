@@ -9053,7 +9053,7 @@ class Loader {
     this.id = id2 || DEFAULT_ID;
     this.language = language;
     this.libraries = libraries;
-    this.mapIds = mapIds;
+    this.mds = mds;
     this.nonce = nonce;
     this.region = region;
     this.retries = retries;
@@ -9070,14 +9070,14 @@ class Loader {
   get options() {
     return {
       version: this.version,
-      apiKey: this.apiKey,
+      Key: this.Key,
       channel: this.channel,
       client: this.client,
       id: this.id,
       libraries: this.libraries,
       language: this.language,
       region: this.region,
-      mapIds: this.mapIds,
+      mds: this.mds,
       nonce: this.nonce,
       url: this.url,
       authReferrerPolicy: this.authReferrerPolicy
@@ -9099,7 +9099,7 @@ class Loader {
     return this.done && !this.loading && this.errors.length >= this.retries + 1;
   }
   /**
-   * CreateUrl returns the Google Maps JavaScript API script url given the [[LoaderOptions]].
+   * CreateUrl returns the Google Maps JavaScript  script url given the [[LoaderOptions]].
    *
    * @ignore
    * @deprecated
@@ -9107,8 +9107,8 @@ class Loader {
   createUrl() {
     let url = this.url;
     url += `?callback=__googleMapsCallback`;
-    if (this.apiKey) {
-      url += `&key=${this.apiKey}`;
+    if (this.Key) {
+      url += `&key=${this.Key}`;
     }
     if (this.channel) {
       url += `&channel=${this.channel}`;
@@ -9128,8 +9128,8 @@ class Loader {
     if (this.version) {
       url += `&v=${this.version}`;
     }
-    if (this.mapIds) {
-      url += `&map_ids=${this.mapIds.join(",")}`;
+    if (this.mds) {
+      url += `&map_ids=${this.mds.join(",")}`;
     }
     if (this.authReferrerPolicy) {
       url += `&auth_referrer_policy=${this.authReferrerPolicy}`;
@@ -9143,14 +9143,14 @@ class Loader {
     }
   }
   /**
-   * Load the Google Maps JavaScript API script and return a Promise.
+   * Load the Google Maps JavaScript  script and return a Promise.
    * @deprecated, use importLibrary() instead.
    */
   load() {
     return this.loadPromise();
   }
   /**
-   * Load the Google Maps JavaScript API script and return a Promise.
+   * Load the Google Maps JavaScript  script and return a Promise.
    *
    * @ignore
    * @deprecated, use importLibrary() instead.
@@ -9171,7 +9171,7 @@ class Loader {
     return google.maps.importLibrary(name);
   }
   /**
-   * Load the Google Maps JavaScript API script with a callback.
+   * Load the Google Maps JavaScript  script with a callback.
    * @deprecated, use importLibrary() instead.
    */
   loadCallback(fn) {
@@ -9188,12 +9188,12 @@ class Loader {
       return;
     }
     const params = {
-      key: this.apiKey,
+      key: this.Key,
       channel: this.channel,
       client: this.client,
       libraries: this.libraries.length && this.libraries,
       v: this.version,
-      mapIds: this.mapIds,
+      mds: this.mds,
       language: this.language,
       region: this.region,
       authReferrerPolicy: this.authReferrerPolicy
@@ -9204,7 +9204,7 @@ class Loader {
     );
     if (!((_b = (_a = window === null || window === void 0 ? void 0 : window.google) === null || _a === void 0 ? void 0 : _a.maps) === null || _b === void 0 ? void 0 : _b.importLibrary)) {
       ((g2) => {
-        let h2, a, k2, p2 = "The Google Maps JavaScript API", c = "google", l2 = "importLibrary", q2 = "__ib__", m2 = document, b2 = window;
+        let h2, a, k2, p2 = "The Google Maps JavaScript ", c = "google", l2 = "importLibrary", q2 = "__ib__", m2 = document, b2 = window;
         b2 = b2[c] || (b2[c] = {});
         const d2 = b2.maps || (b2.maps = {}), r2 = /* @__PURE__ */ new Set(), e = new URLSearchParams(), u2 = () => (
           // @ts-ignore
@@ -9278,7 +9278,7 @@ class Loader {
       this.callback();
     } else {
       if (window.google && window.google.maps && window.google.maps.version) {
-        console.warn("Google Maps already loaded outside @googlemaps/js-api-loader.This may result in undesirable behavior as options and script parameters may not match.");
+        console.warn("Google Maps already loaded outside @googlemaps/js--loader.This may result in undesirable behavior as options and script parameters may not match.");
         this.callback();
         return;
       }
@@ -10495,7 +10495,7 @@ function buildFullPath(baseURL, requestedURL) {
   return requestedURL;
 }
 const isURLSameOrigin = platform.isStandardBrowserEnv ? (
-  // Standard browser envs have full support of the APIs needed to test
+  // Standard browser envs have full support of the s needed to test
   // whether the request URL is of the same origin as current location.
   function standardBrowserEnv2() {
     const msie = /(msie|trident)/i.test(navigator.userAgent);
@@ -11386,7 +11386,7 @@ function init(converter, defaultAttributes) {
     }
   );
 }
-var api = init(defaultConverter, { path: "/" });
+var  = init(defaultConverter, { path: "/" });
 const main = "";
 var jsxRuntime = { exports: {} };
 var reactJsxRuntime_production_min = {};
@@ -12072,7 +12072,7 @@ var T = { extend: function t2(e, n2, r2) {
   E(e, function(e2, n2) {
     null != e2 && (P(e2) && true === e2.prefix ? M(t5, n2, e2.value) : t5.style[n2] = e2);
   });
-}, capitalize: j, isString: function(t5) {
+}, ctalize: j, isString: function(t5) {
   return "string" == typeof t5 || t5 instanceof String;
 }, isFunction: function(t5) {
   return "function" == typeof t5;
@@ -12739,7 +12739,6 @@ var ve = function() {
 };
 const csrf_token = api.get("csrftoken");
 localStorage.getItem("token");
-const apiKey = "AIzaSyDysZxQZl4sO07OmaTugryPQZn50zc7dvY";
 const base_url = {}.NODE_ENV === "production" ? "http://localhost:8000" : "http://localhost:8000";
 function convertDate(inputDate) {
   const dateObj = new Date(inputDate);
