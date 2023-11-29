@@ -1,0 +1,37 @@
+
+{% load django_vite %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  
+    {% vite_hmr_client %}
+    {% vite_asset 'manifest.json' %}
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>PAWS-INDEX</title>
+  </head>
+  <body>
+  
+
+    <div id="root">  </div>
+    <div class="container">
+      {% block body %}
+      {% spaceless %}
+      <strong>
+          Hello
+          <h3>{{request.user}}</h3>
+      </strong>
+  {% endspaceless %}
+      {% endblock %}
+  </div>
+  <div>
+
+
+
+  </body>
+</html>
+

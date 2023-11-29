@@ -14,13 +14,17 @@ from datetime import timedelta
 from pathlib import Path
 import os
 from decouple import config
+import django_vite
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+#BD /home/brittany/PycharmProjects/pythonProject12/paws_site
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-BASE_FRONTEND_URL = os.environ.get('DJANGO_BASE_FRONTEND_URL', default='http://localhost:3000')
+
+BASE_FRONTEND_URL = os.environ.get('DJANGO_BASE_FRONTEND_URL', default='http://localhost:5173')
 BACKEND_URL='http://localhost:8000'
 
 #Google OAUTH Information
@@ -34,37 +38,45 @@ GOOGLE_CLIENT_SECRET = config('GOOGLE_OAUTH2_CLIENT_SECRET')
 SECRET_KEY = 'django-insecure-5t8f2qnla8^u5usm#7!(!6^rx#5dny*$=t+sv3lg&66e(tje@0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 AUTH_USER_MODEL = 'paws_server.User'
+LOGIN_REDIRECT_URL='http://localhost:5173/'
 
-
+CSRF_COOKIE_SAMESITE = 'None'
 CSRF_USE_SESSIONS = True
-ALLOWED_HOSTS = ['*', 'http://localhost:3000']
-CSRF_COOKIE_DOMAIN =  ['http://localhost:3000']
-CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']
-CORS_ORIGIN_ALLOW_ALL = True
+
+ALLOWED_HOSTS = ['*', 'http://localhost:3000', 'http://localhost:5173','http://localhost:' ]
+CSRF_COOKIE_DOMAIN =  ['http://localhost:3000','http://localhost:5173', 'http://localhost:', "http://127.0.0.1:8000",'http://127.0.0.1',]
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000','http://localhost:5173', 'http://localhost:', "http://127.0.0.1:8000",'http://127.0.0.1',]
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    'http://localhost:5173',
+    'http://localhost:' ,
+    'http://127.0.0.1:5173',
     "http://127.0.0.1:3000",
     "http://127.0.0.1:8000",
     'http://localhost:8000'
-
 ]
+
 
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    'http://localhost:5173',
+    'http://localhost:' ,
+    'http://127.0.0.1:5173',
     "http://127.0.0.1:8000",
     'http://localhost:8000'
 ]
-# Application definition
-CSRF_HEADER_NAME = 'X-CSRFToken'
+
+SESSION_COOKIE_SAMESITE = None
+
 
 DEFAULT_APPS = [
     'django_vite',
-    'django_vite_plugin',
     'daphne',
     'channels',
     'selenium',
@@ -91,14 +103,13 @@ INSTALLED_APPS =  DEFAULT_APPS + CUSTOM_APPS
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.RemoteUserMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
 
@@ -107,7 +118,7 @@ ROOT_URLCONF = 'paws_site.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'paws_client', 'dist')],
+        'DIRS': [os.path.join(BASE_DIR, 'paws_client', 'dist'), os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'paws_client') ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -174,11 +185,24 @@ USE_I18N = True
 USE_TZ = True
 
 
+##VITE SETTINGS
+# settings.py
+
+
+DJANGO_VITE_ASSETS_PATH = os.path.join(BASE_DIR, 'paws_client', 'dist')
+DJANGO_VITE_DEV_SERVER_PORT = 5173
+DJANGO_VITE_DEV_MODE=True
+
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'paws_client', 'dist'), os.path.join(BASE_DIR, 'paws_client', 'src')]
+STATIC_URL = "static/"
+
+#static files are served from these directories during develpment
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'paws_client', 'dist'), os.path.join(BASE_DIR, 'paws_client', 'src'), DJANGO_VITE_ASSETS_PATH, BASE_DIR]
+#static files are collected and stored here for production
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
 
 # Default primary key field type
@@ -189,6 +213,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTStatelessUserAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.AllowAny',
@@ -213,10 +241,12 @@ CHANNEL_LAYERS = {
 
 
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_ENGINE="django.contrib.sessions.backends.db"
 
 
-
-DJANGO_VITE_ASSETS_PATH = os.path.join(BASE_DIR, 'paws_client', 'dist')
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.RemoteUserBackend",
+    "django.contrib.auth.backends.ModelBackend"
+]
 
 

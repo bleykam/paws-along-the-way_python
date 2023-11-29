@@ -1,0 +1,8 @@
+@use "../../styles/partials/colors";
+@use "../../styles/partials/mixins";
+
+
+.logout-button{
+    margin-top: 0.5rem;
+    @include mixins.request-button;
+}

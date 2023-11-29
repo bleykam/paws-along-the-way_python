@@ -2,17 +2,16 @@ import "./OrganizationPage.scss";
 import { Link, useParams } from "react-router-dom";
 import {useState} from "react";
 import AnimalRequestCard from "../../components/AnimalRequestCard/AnimalRequestCard";
-import { useGetEffect } from "../../utils";
+import { useGetEffect, base_url } from "../../utils";
 
 
 export default function OrganizationPage() {
   const id = useParams();
   const orgId = id['orgId']
   const [organization, setOrganization] = useState("");
-  console.log(organization)
   const [animals, setAnimals] = useState("");
  
-  useGetEffect(`/api/organizations/${orgId}/`, setOrganization);
+  useGetEffect(`${base_url}/api/organizations/${orgId}/`, setOrganization);
   useGetEffect(`http://localhost:8000/api/org-animals/?orgId=${orgId}`, setAnimals);
 
   if(!organization){
@@ -21,7 +20,9 @@ export default function OrganizationPage() {
 
   return (
     <main className="organization-page">
-      <h1 className="profile__heading">{organization.name}!</h1>
+
+      <div className="user-page__header" > <h1 className="user-page__title">Welcome, {organization.name} !</h1>
+          <Link to='/userpage/messages'><button className="user-page__button">Contact {organization.name}</button></Link></div> 
       <div className="organization-page__info">
 
         <div className="organization-page__address">

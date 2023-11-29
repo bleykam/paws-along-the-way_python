@@ -1,0 +1,56 @@
+@use "../../styles/partials/colors";
+@use "../../styles/partials/mixins";
+
+.messaging{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem;
+   
+    @include mixins.tablet{
+        padding: 1rem 2.25rem;
+        
+    }
+
+    @include mixins.desktop{
+        padding: 1rem 5rem;
+ 
+    }
+
+    &__title{
+        color: colors.$secondary-slate;
+        margin: 1rem;
+    }
+    &__log{
+        text-align: left;
+        padding: 1rem;
+        width:100%;
+        border-radius: 0.45rem;
+        border: 0.125rem solid colors.$primary-green;
+        @include mixins.tablet{
+            width:50%;
+        }
+
+    }
+    
+
+    &__input{
+        width:100%;
+        border: 0.125rem solid colors.$primary-blue;
+        margin: 1rem 0;
+        padding: 0.5rem;
+        border-radius: 0.45rem;
+        @include mixins.tablet{
+            width:50%;
+        }
+    }
+
+    &__button{
+        @include mixins.request-button;
+        @include mixins.tablet{
+            width:50%;
+        }
+    }
+}
+
+

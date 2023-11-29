@@ -1,0 +1,26 @@
+{
+  "index.css": {
+    "file": "assets/index-4da6ddf2.css",
+    "src": "index.css"
+  },
+  "index.html": {
+    "assets": [
+      "assets/profile-circle-svgrepo-com-354f2c2b.svg",
+      "assets/paw-trail-eba0e9af.svg"
+    ],
+    "css": [
+      "assets/index-4da6ddf2.css"
+    ],
+    "file": "assets/index-31dc186f.js",
+    "isEntry": true,
+    "src": "index.html"
+  },
+  "src/assets/paw-trail.svg": {
+    "file": "assets/paw-trail-eba0e9af.svg",
+    "src": "src/assets/paw-trail.svg"
+  },
+  "src/assets/profile-circle-svgrepo-com.svg": {
+    "file": "assets/profile-circle-svgrepo-com-354f2c2b.svg",
+    "src": "src/assets/profile-circle-svgrepo-com.svg"
+  }
+}

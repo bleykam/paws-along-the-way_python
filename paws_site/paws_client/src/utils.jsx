@@ -19,7 +19,8 @@ export const base_url = import.meta.env.NODE_ENV === 'production' ? import.meta.
 export  const config = {
   headers: {
       Authorization: `Bearer ${token}`,
-      'X-CSRFToken': csrf_token, 
+      xsrfHeaderName: 'HTTP_X_XSRF_TOKEN',
+      'HTTP_X_XSRF_TOKEN': csrf_token, 
   },
 }
   
@@ -157,47 +158,3 @@ return address
 
 }
 
-export function getCookie(name) {
-  const value = "; " + document.cookie;
-  const parts = value.split("; " + name + "=");
-  if (parts.length === 2) return parts.pop().split(";").shift();
-}
-
-
-export function ChatBox(text, isUser, sender) {
-
-  if (isUser) {
-    return (
-      <MessageList 
-    className='message-list'
-    lockable={true}
-    toBottomHeight={'100%'}
-    dataSource={[
-    {
-      position:"right",
-      type:"text",
-      title:sender,
-      text:text,
-    },
-      ]}
-      />
-  )} else {
-    return (
-      <MessageList
-      className='message-list'
-      lockable={true}
-      toBottomHeight={'100%'}
-      dataSource={[
-      {
-        position:"left",
-        type:"text",
-        title:sender,
-        text:text,
-      },
-      ]}
-      />
-    );
-  }
-
-
-}

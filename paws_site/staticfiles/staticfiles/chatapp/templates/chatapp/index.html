@@ -1,0 +1,41 @@
+<!-- chat/templates/chat/index.html -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}" >
+    <meta charset="utf-8"/>
+    <title>Chat Rooms</title>
+</head>
+<body>
+    <main class="messaging" style="display:flex; flex-direction: column; align-items: center;">
+    <h1 class="title"  style="color:blue;text-align:center;">INDEX TEXT CHAT</h1>
+    <textarea id="chat-log" cols="100" rows="20"  style="margin:1rem;"> </textarea><br>
+    <input id="chat-message-input" type="text" size="100" style="margin:1rem;"><br>
+    <input id="chat-message-submit" type="button" value="Send" style="margin:1rem;">
+    <h2 style="width: 75%;">REquest Session:  {{ context }}</h2>
+    <h2 style="width: 75%;" >USER: {{user}}</h2>
+    <h2 style="width: 75%;" >REQUEST HEADERS: {{request}}</h2>
+    <h2 style="width: 75%;" >{{scoped}}</h2>
+
+
+</main>
+    <script>
+        const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/chatapp/');
+        chatSocket.onopen = function(e) {
+        alert("SOCKET OPEN", e)
+       console.log('Chat socket open');
+        };
+
+        chatSocket.onclose = function(e) {
+            alert("socket closed", e)
+           console.error('Chat socket closed unexpectedly');
+         };
+
+    </script>
+       <!-- <script src="{% static 'index.js' %}"></script> -->
+       <script src="{% static './js/bundle.js' %}"></script>
+</body>
+</html>
+
+

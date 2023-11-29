@@ -1,0 +1,43 @@
+@use "../../styles/partials/colors";
+@use "../../styles/partials/mixins";
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &__div {
+        display: flex;
+        justify-content: center;
+        margin: 1rem;
+    }
+
+    &__input {
+        padding: 0.5rem;
+        border-radius: 0.45rem;
+    }
+
+    &__title {
+        font-weight: 700;
+        font-size: 1.5rem;
+        padding: 1rem;
+        margin-top: 3rem;
+        color: colors.$secondary-slate;
+        text-align: center;
+
+        @include mixins.tablet {
+            font-size: 1.5rem;
+            padding: 0;
+        }
+    }
+
+    &__button {
+        @include mixins.request-button;
+    }
+
+    &__google {
+        display: flex;
+        justify-content: center;
+        margin: 1rem;
+    }
+}

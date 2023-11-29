@@ -1,11 +1,14 @@
-{% load static %}
+
 {% load django_vite %}
+
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
+  
     {% vite_hmr_client %}
-    {% vite_asset './src/main.jsx' %}
+    {% vite_asset 'assets' %}
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
@@ -17,14 +20,17 @@
     <div id="root">  </div>
     <div class="container">
       {% block body %}
-   
-   
-      {payload}
+      {% spaceless %} 
+      <strong>
+          Hello
+          <h3>{{request.user}}</h3>
+      </strong>
+  {% endspaceless %}
       {% endblock %}
   </div>
   <div>
 
-    <script src="{% static './src/main.jsx %}"></script
+
 
   </body>
 </html>

@@ -1,0 +1,101 @@
+@use "../../styles/partials/colors";
+@use "../../styles/partials/mixins";
+
+.animal-tile-outer {
+	background-color: colors.$primary-background;
+	width: 262.5px;
+	padding: 20px 16px 4px;
+	border-radius: 8px;
+	display: inline-block;
+
+}
+
+.animal-tiles-list {
+	list-style: none;
+	margin: 0 auto;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+
+	@include mixins.tablet {
+		padding: 2.25rem;
+	}
+
+}
+
+
+.animal-tile-outer .animal-tile-inner {
+	position: relative;
+}
+
+.animal-tile-outer .tile {
+
+	border-radius: 8px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+	background-color: var(--newtab-background-color-secondary);
+	justify-content: center;
+	margin: 0 auto;
+	height: 185px;
+	width: 185px;
+	cursor: pointer;
+	position: relative;
+	align-items: center;
+	color: var(--newtab-text-secondary-color);
+	display: flex;
+	font-size: 32px;
+	font-weight: 200;
+	text-transform: uppercase;
+
+}
+
+.animal-tile-outer .tile .image-wrapper {
+	border-radius: 4px;
+	width: 125px;
+	height: 125px;
+	overflow: hidden;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.animal-tile-outer .rich-icon {
+
+	background-size: cover;
+	inset-inline-start: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.animal-tile-outer .animal-tile-icon {
+	background-color: var(--newtab-background-color-secondary);
+	background-position: center center;
+	background-repeat: no-repeat;
+	border-radius: 4px;
+	position: absolute;
+}
+
+.animal-tile-outer .title span {
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.outer-wrapper .ds-animal-tiles .animal-tiles .animal-tiles-list {
+	margin: 0 -12px;
+}
+
+.animal-tile-outer .title {
+	color: var(--newtab-text-primary-color);
+	padding-top: 8px;
+	font: caption;
+	text-align: center;
+	position: relative;
+}
+
+.tile-span {
+	color: colors.$secondary-blue;
+}
