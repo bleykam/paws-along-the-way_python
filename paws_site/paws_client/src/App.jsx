@@ -10,7 +10,6 @@ import Login from "./components/Login/Login";
 import Logout from "./components/Logout/Logout";
 import AddAnimal from "./components/AddAnimal/AddAnimal";
 import UserPage from "./pages/UserPage/UserPage";
-import Messaging from "./components/Messaging/Messaging";
 import NavBar from "./components/NavBar/NavBar";
 import EditAnimal from "./components/EditAnimal/EditAnimal";
 
@@ -45,7 +44,6 @@ export default function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/logout" element={<Logout />} />
               <Route path="/addanimal" element={<AddAnimal  />} />
-              <Route path="/userpage/messages" element={<Messaging />} />
             </Routes>
           </div>
         </div>

@@ -41,3 +41,30 @@
         margin: 1rem;
     }
 }
+
+
+.Sso__dividerLine {
+    border-top: 1px solid #edeff1;
+    width: 40%;
+}
+
+.Sso__dividerText {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.125rem;
+    color: #878a8c;
+    text-transform: uppercase;
+}
+
+.Sso__divider {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin: 1.75rem 0;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}

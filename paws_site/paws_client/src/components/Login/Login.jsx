@@ -112,12 +112,15 @@ export default function Login() {
 			</div>
 
 			<form className="login-form" onSubmit={handleSubmit}>
-			{ csrf_token }
-				<input type="hidden" name='csrfmiddlewaretoken' value={csrf_token} />
+			
 
-				<span className="divider sign-in">
-					*** or sign in with email ***
-				</span>
+				
+            <div className="Sso__divider ">
+            <span className="Sso__dividerLine"></span>
+            <span className="Sso__dividerText">or</span>
+            <span className="Sso__dividerLine">     </span>
+            </div>
+			<div>Sign in with Email:</div>
 				<div className="login-form__div">
 					<input
 						className="login-form__input"
